@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<style>
+	
+		body {  
+			background-color: black;
+		}
+	/* Display DIV box location */
+		.Fence {
+			top:  55px;
+		}
+		
+		.Height {
+			top:  175px;
+		}
+
+		.Angle {
+			top:  295px;
+		}		
+
+	/* Display DIV box properties */
+		.Axis {
+			color: #0000aa;
+			position: fixed;
+			left:  30px;			
+			height: 70px;
+			width: 460px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+			padding: 20px;
+		}
+			
+		
+		
+		#display1 { 
+			position: absolute;
+			top:  50px;
+			left: 230px;
+			width: 250px;
+		}
+
+		#display2 { 
+			position: absolute;
+			top:  180px;
+			left:  270px;
+			width: 200px;
+		}
+		
+		#display3 { 
+			position: absolute;
+			top:  300px;
+			left:  270px;
+			width: 200px;
+		}
+		
+		#abs_inc { 
+			position: absolute;
+			top:  420px;
+			left:  40px;
+		}
+
+		#mm_inch { 
+			position: absolute;
+			top:  420px;
+			left:  160px;
+		}
+
+		#button_units { 
+			position: absolute;
+			top:  60px;
+			left:  560px;
+		}
+
+		#button_mode { 
+			position: absolute;
+			top:  60px;
+			left:  680px;
+		}
+		
+		.myButton {
+			-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+			-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+			box-shadow:inset 0px 34px 0px -15px #b54b3a;
+			background-color:#a73f2d;
+			border:1px solid #241d13;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:21px;
+			font-weight:bold;
+			padding:9px 23px;
+			text-decoration:none;
+			text-shadow:0px -1px 0px #7a2a1d;
+		}
+		.myButton:hover {
+			background-color:#b34332;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}
+		
+		.bottomright {
+			position: absolute;
+			bottom: -12px;
+			right: 12px;
+		}
+	</style>
+
+	<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script src="js/main.js"           type="text/javascript"></script>	
+	<script src="js/excanvas.js"         type="text/javascript"></script>	
+	<script src="js/segment-display.js"  type="text/javascript"></script>	
+
+	<title>Rotala panel</title>
+</head>
+
+<body>
+
+	<canvas id="display1"></canvas>
+	<canvas id="display2"></canvas>
+	<canvas id="display3"></canvas>
+	
+	<div class="Fence Axis" >
+		<h1>Fence</h1>
+		<h5 class="bottomright">mm</h5>
+	</div>
+	
+	<div class="Height Axis">
+		<h1>Height</h1>
+		<h5 class="bottomright">mm</h5>		
+	</div>
+	
+	<div class="Angle Axis">
+		<h1>Angle</h1>
+		<h5 class="bottomright">deg</h5>		
+	</div>
+
+	<a id="abs_inc" class="myButton">ABS</a>
+	<a id="mm_inch" class="myButton">MM</a>
+
+	<img id="button_units" src="images/mm.jpg">
+	<img id="button_mode" src="images/abs.jpg">
+
+</body>
+</html>
