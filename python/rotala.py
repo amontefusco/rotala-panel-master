@@ -12,9 +12,9 @@ ws=None
 t_exit=False
  
 def counter():
-	i=0
-	z=999
-	r=450
+	i=00.0
+	z=99
+	r=45
 	while True:
 		if t_exit==True:
 			print "Bye"
@@ -54,13 +54,13 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		data=json.loads(message)
 		
 		if data["event"]=="click":
-			if data["id"]=="abs_inc": 
+			if data["id"]=="abs_incr": 
 				if data["value"]=="ABS":
-					data = {"target": "abs_inc", "value" : "INC"}
+					data = {"target": "abs_incr", "value" : "INCR"}
 					print "ABS"
 				else:
-					data = {"target": "abs_inc", "value" : "ABS"}
-					print "INC"
+					data = {"target": "abs_incr", "value" : "ABS"}
+					print "INCR"
 
 				data = json.dumps(data)
 				ws.write_message(data)
@@ -104,7 +104,46 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				data = json.dumps(data)
 				ws.write_message(data)
 				return
+				
+		if data["event"]=="click":
+			if data["id"]=="button_zero1": 
+				if data["value"]=="images/zero1.jpg":
+					data = {"target": "button_zero1", "value" : "images/zero1.jpg"}
+					print "Fence Zero"
+				else:
+					data = {"target": "button_zero1", "value" : "images/zero1.jpg"}
+					print "Fence Zero"
 
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="button_zero2": 
+				if data["value"]=="images/zero2.jpg":
+					data = {"target": "button_zero2", "value" : "images/zero2.jpg"}
+					print "Height Zero"
+				else:
+					data = {"target": "button_zero2", "value" : "images/zero2.jpg"}
+					print "Height Zero"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="button_zero3": 
+				if data["value"]=="images/zero3.jpg":
+					data = {"target": "button_zero3", "value" : "images/zero3.jpg"}
+					print "Angle Zero"
+				else:
+					data = {"target": "button_zero3", "value" : "images/zero3.jpg"}
+					print "Angle Zero"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
 	
 	def on_close(self):
 		print "Websocket closed"

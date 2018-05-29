@@ -26,8 +26,8 @@ ws.onmessage = function(ev){
 		display3.setValue(data.value.toString());
 	}	
 
-	if (data.target=="abs_inc") {
-		$("#abs_inc").text(data.value.toString());
+	if (data.target=="abs_incr") {
+		$("#abs_incr").text(data.value.toString());
 	}	
 
 	if (data.target=="mm_inch") {
@@ -40,6 +40,15 @@ ws.onmessage = function(ev){
 	
 	if (data.target=="button_mode") {
 		$("#button_mode").attr("src",data.value.toString());
+	}
+	if (data.target=="button_zero1") {
+		$("#button_mode").attr("src",data.value.toString());
+	}	
+	if (data.target=="button_zero2") {
+		$("#button_mode").attr("src",data.value.toString());
+	}	
+	if (data.target=="button_zero3") {
+		$("#button_mode").attr("src",data.value.toString());
 	}	
 };
 
@@ -51,6 +60,7 @@ ws.onerror = function(ev){
 	console.log("Websocket error");
 };
 
+ 	/*-- Display Attributes Control --*/
  
 $(document).ready(function() {
 	display1 = new SegmentDisplay("display1");
@@ -72,7 +82,7 @@ $(document).ready(function() {
 
 	display2= new SegmentDisplay("display2");
 
-	display2.pattern         = " ##.#";
+	display2.pattern         = "###.#";
 	display2.displayAngle    = 6.5;
 	display2.digitHeight     = 32;
 	display2.digitWidth      = 17.5;
@@ -88,7 +98,7 @@ $(document).ready(function() {
 	
 	display3= new SegmentDisplay("display3");
 
-	display3.pattern         = " ##.#";
+	display3.pattern         = "###.#";
 	display3.displayAngle    = 6.5;
 	display3.digitHeight     = 32;
 	display3.digitWidth      = 17.5;
@@ -101,10 +111,11 @@ $(document).ready(function() {
 	display3.colorOff        = "#100505";
 
 	display3.setValue("0");	
-	
 
-	$("#abs_inc").click(function(){
-		data={"event":"click","id":"abs_inc", "value" :$("#abs_inc").text()};
+/*-- Bottom Buttons --*/
+	
+	$("#abs_incr").click(function(){
+		data={"event":"click","id":"abs_incr", "value" :$("#abs_incr").text()};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
@@ -115,6 +126,8 @@ $(document).ready(function() {
 		ws.send(a);
 	}); 
 
+/*-- Photo Buttons --*/
+	
 	$("#button_units").click(function(){
 		data={"event":"click","id":"button_units", "value" :$("#button_units").attr("src")};
 		a=JSON.stringify(data);
@@ -126,5 +139,22 @@ $(document).ready(function() {
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); 
-
+	
+	$("#button_zero1").click(function(){
+		data={"event":"click","id": "button_mode","value" : $("#button_zero1").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+	
+	$("#button_zero2").click(function(){
+		data={"event":"click","id": "button_mode","value" : $("#button_zero2").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+	
+	$("#button_zero3").click(function(){
+		data={"event":"click","id": "button_mode","value" : $("#button_zero3").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 	
 });
