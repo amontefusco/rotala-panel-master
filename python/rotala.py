@@ -37,7 +37,18 @@ def counter():
 			data = {"target": "display3", "value" : r}
 			data = json.dumps(data)
 			ws.write_message(data)			
+			data = {"target": "display4", "value" : i}
+			data = json.dumps(data)
+			ws.write_message(data)
 
+			data = {"target": "display5", "value" : z}
+			data = json.dumps(data)
+			ws.write_message(data)
+			
+			data = {"target": "display6", "value" : r}
+			data = json.dumps(data)
+			ws.write_message(data)
+			
 class SocketHandler(tornado.websocket.WebSocketHandler):
 	def check_origin(self, origin):
 		return True
