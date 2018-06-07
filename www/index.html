@@ -35,29 +35,14 @@
 			text-align: center;
 			background-color: black;
 		}
+		#Settings {
+			width: 800px;
+			height: 480px;
+			/* padding: 200px 0; */
+			text-align: center;
+			background-color: black;
+		}
 		
-/* --------------- Menu Buttons ---------------------- */
-		.bottoneAcceso{
-			border-radius: 20px 20px 0px 0px;
-			background: #4CAF50;
-			padding: 0px; 
-			width: 100px;
-			height: 30px;
-			color: white;
-			border: none;
-			margin-top: 0px;
-			z-index: 100;
-		}
-		.bottoneSpento{
-			border-radius: 20px 20px 0px 0px;
-			background: #404040;
-			padding: 0px; 
-			width: 100px;
-			height: 30px;
-			color: white;
-			border: none;
-			z-index_ 200;
-		}
 		
 /* ------------- Display DIV box location -------------- */	
 	
@@ -127,7 +112,30 @@
 			left:  240px;
 			width: 200px;
 		}		
-		
+
+/* --------------- Menu Buttons ---------------------- */
+		.bottoneAcceso{
+			border-radius: 20px 20px 0px 0px;
+			background: #4CAF50;
+			padding: 0px; 
+			width: 100px;
+			height: 30px;
+			color: white;
+			border: none;
+			margin-top: 0px;
+			z-index: 100;
+		}
+		.bottoneSpento{
+			border-radius: 20px 20px 0px 0px;
+			background: #404040;
+			padding: 0px; 
+			width: 100px;
+			height: 30px;
+			color: white;
+			border: none;
+			z-index_ 200;
+		}		
+
 /* ---------- Display Counters Unit Description mm/inches -------- */
 		
 		.bottomright {
@@ -141,32 +149,32 @@
 		
 		#button_zero1 { 
 			position: absolute;
-			top:  55px;
-			left:  560px;
+			top:  60px;
+			left:  530px;
 		}
 
 		#button_zero2 { 
 			position: absolute;
 			top:  180px;
-			left:  560px;
+			left:  530px;
 		}
 
 		#button_zero3 { 
 			position: absolute;
 			top:  300px;
-			left:  560px;
+			left:  530px;
 		}
 		
 		#button_units { 
 			position: absolute;
-			top:  55px;
-			left:  680px;
+			top:  60px;
+			left:  650px;
 		}		
 		
 		#button_mode { 
 			position: absolute;
 			top:  180px;
-			left:  680px;
+			left:  650px;
 		}		
 
 		.triangle-up {
@@ -209,21 +217,105 @@
 			background: #4CAF50;
 			text-decoration: none;
 		}
+
+/* -------------- Button Multiplier --------------- */
+
 		.x10 {
 			position: absolute;
 			left: 720px;		
-			top: 200px;
-		}	
+			top: 270px;
+		}
 		.x1 {
 			position: absolute;
 			left: 630px;		
-			top: 200px;
+			top: 270px;
 		}	
 		.x01 {
 			position: absolute;				
 			left: 540px;
+			top: 270px;
+		}
+
+
+/* -------------- Button 4 --------------- */		
+		a.button4{
+			position: absolute;
 			top: 200px;
+			padding:0.3em 1.2em;
+			margin:0 0.1em 0.1em 0;
+			border:2px solid rgba(255,255,255,0);
+			border-radius:2em;
+			box-sizing: border-box;
+			text-decoration:none;
+			font-weight:300;
+			color:#FFFFFF;
+			text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+			text-align:center;
+			transition: all 0.2s;
+		}
+		a.button4:hover{
+		 	border-color: rgba(255,255,255,1);
+		}
+			@media all and (max-width:30em){
+		 a.button4 {
+			  display:block;
+			  margin:0.2em auto;
+			 }
+		} 	
+
+/* -------------- Navigation Buttons General Properties --------------- */
+
+		#Left { 
+			position: absolute;
+			top:  96px;
+			left:  561px;
+			max-width: 24%;
+			max-height: 24%;
+		}
+		#Center { 
+			position: absolute;
+			top:  108px;
+			left:  613px;
+			max-width: 19%;
+			max-height: 19%;			
+		}
+		#Right { 
+			position: absolute;
+			top:  96px;
+			left:  699px;
+			max-width: 24%;
+			max-height: 24%;
+		}
+		#Up { 
+			position: absolute;
+			top:  54px;
+			left:  601px;
+			max-width: 15%;			
+			max-height: 15%;
+		}
+		#Down { 
+			position: absolute;
+			top:  189px;
+			left:  601px;
+			max-width: 15%;
+			max-height: 15%;
+		}
+		.imgtxt {
+
+			text-align: center;
+			color: white;
+		}
+		.centered {
+			position: absolute;
+			top:  120px;
+			left:  635px;
+			text-shadow: 3px 3px 0 #202020;
+			z-index: 100;
 		}		
+		
+/* -------------- Settings Page Properties --------------- */
+
+
 		
 	</style>
 	
@@ -239,14 +331,16 @@
 
 <body onLoad="javascript: myFunction('bottoneUno')">
 
+
 	<button id="bottoneUno" onclick="myFunction(this.id)">DRO</button>
 	<button id="bottoneDue" onclick="myFunction(this.id)">Auto</button>
-	<button id="bottoneTre" onclick="myFunction(this.id)" style="float:right;">SetUp</button>
-
+	<button id="bottoneTre" onclick="myFunction(this.id)" style="float:right;">Settings</button>
+	<button id="bottoneQuattro" onclick="myFunction(this.id)">SetUp</button>
 	
-<!-- **********Display Counters Description********** -->
+<!-- ******************** -->
 
-	<!-- *************DRO************* -->
+<!-- ********************DRO Page************************* -->
+
 	<div id="DRO" style="display: block;">
 		<div class="Fence Axis" >
 			<canvas id="display1"></canvas>
@@ -266,7 +360,7 @@
 			<h5 class="bottomright">deg</h5>		
 		</div>
 
-		<!-- ********* Photo Buttons ********** -->
+		<!-- ********** Photo Buttons ************** -->
 		<img id="button_units" src="images/mm.jpg">
 		<img id="button_mode" src="images/abs.jpg">
 		<img id="button_zero1" src="images/zero1.jpg">
@@ -274,7 +368,8 @@
 		<img id="button_zero3" src="images/zero3.jpg">
 	</div>
 	
-	<!-- *************Auto************* -->	
+<!-- *************************Auto Page***************************** -->
+
 	<div id="Auto" style="display: none;">
 		<div class="Fence Axis" >
 			<canvas id="display4"></canvas>
@@ -291,18 +386,67 @@
 			<h1 class="CenterTxt">Angle</h1>
 			<h5 class="bottomright">deg</h5>		
 		</div>
-		<div class="triangle-up"></div>
-		<div class="triangle-down"></div>
+	<!-- 	<div class="triangle-up"></div> -->
+	<!-- 	<div class="triangle-down"></div> -->
+		<div class="NavButtons">
+			<img id="Left" src="images/navbuttonLeft.gif">
+			<img id="Left" src="images/navbuttonLeftON.gif">
+			<div class="imgtxt">
+				<h2 class="centered">Run</h2>
+				<img id="Center" src="images/navbuttonCenter.gif">
+				<img id="Center" src="images/navbuttonCenterON.gif">
+			</div>
+			<img id="Right" src="images/navbuttonRight.gif">
+			<img id="Right" src="images/navbuttonRightON.gif">
+			<img id="Up" src="images/navbuttonUp.gif">
+			<img id="Up" src="images/navbuttonUpOn.gif">
+			<img id="Down" src="images/navbuttonDown.gif">		
+			<img id="Down" src="images/navbuttonDownON.gif">			
+		</div>
 		<button class="btn x01">x 0.1</button>
 		<button class="btn x1">x 1.0</button>
 		<button class="btn x10">x 10</button>		
 	</div>
-	<!-- *************SetUP************* -->	
+
+<!-- *************************************SetUP Page**************************************** -->
+
 	<div id="SetUp" style="display: none;">
+		
 		<button class="btn x01">x 0.1</button>
-		PAGINA TRE
+		<button class="btn x1">x 1.0</button>
+		<button class="btn x10">x 10</button>	
 	</div>
+
+<!-- *************************************Settings Page**************************************** -->
+
+	<div id="Settings" style="display: none;">
+		<button class="btn x01">x 0.1</button>
+		<a href="" class="button4" style="background-color:#44a12e">Button 3</a>
+		Settings
+		<img id="triangle-up" src="images/navigation_buttonLeft2.gif">
+		
+		<p>Click on one of the text labels to toggle the related control:</p>
+		<form action="/action_page.php">
+		  <label for="male" style="color: white;">Male</label>
+		  <input type="radio" name="gender" id="male" value="male"><br>
+		  <label for="female" style="color: white;">Female</label>
+		  <input type="radio" name="gender" id="female" value="female"><br>
+		  <label for="other" style="color: white;">Other</label>
+		  <input type="radio" name="gender" id="other" value="other"><br><br>
+		  <input type="submit" value="Submit">
+		</form>
+	</div>
+
+
+
+
+
 	
+	
+<!-- *************************************Tools Page**************************************** -->		
+	
+	
+
 <!-- ******************JavaScript****************** -->
 	<script>
 		function myFunction(id) {
@@ -311,29 +455,46 @@
 			case "bottoneUno":
 				document.getElementById("DRO").style.display = "block";
 				document.getElementById("Auto").style.display = "none";
+				document.getElementById("Settings").style.display = "none";
 				document.getElementById("SetUp").style.display = "none";
 				
 				document.getElementById("bottoneUno").className = "bottoneAcceso";
 				document.getElementById("bottoneDue").className = "bottoneSpento";
 				document.getElementById("bottoneTre").className = "bottoneSpento";
+				document.getElementById("bottoneQuattro").className = "bottoneSpento";
 				break;
 			case "bottoneDue":
 				document.getElementById("DRO").style.display = "none";
 				document.getElementById("Auto").style.display = "block";
+				document.getElementById("Settings").style.display = "none";
 				document.getElementById("SetUp").style.display = "none";
 
 				document.getElementById("bottoneUno").className = "bottoneSpento";
 				document.getElementById("bottoneDue").className = "bottoneAcceso";
 				document.getElementById("bottoneTre").className = "bottoneSpento";
+				document.getElementById("bottoneQuattro").className = "bottoneSpento";
 				break;
 			case "bottoneTre":
 				document.getElementById("DRO").style.display = "none";
 				document.getElementById("Auto").style.display = "none";
-				document.getElementById("SetUp").style.display = "block";
+				document.getElementById("Settings").style.display = "block";
+				document.getElementById("SetUp").style.display = "none";
 
 				document.getElementById("bottoneUno").className = "bottoneSpento";
 				document.getElementById("bottoneDue").className = "bottoneSpento";
 				document.getElementById("bottoneTre").className = "bottoneAcceso";
+				document.getElementById("bottoneQuattro").className = "bottoneSpento";
+				break;
+			case "bottoneQuattro":
+				document.getElementById("DRO").style.display = "none";
+				document.getElementById("Auto").style.display = "none";
+				document.getElementById("Settings").style.display = "none";
+				document.getElementById("SetUp").style.display = "block";
+
+				document.getElementById("bottoneUno").className = "bottoneSpento";
+				document.getElementById("bottoneDue").className = "bottoneSpento";
+				document.getElementById("bottoneTre").className = "bottoneSpento";
+				document.getElementById("bottoneQuattro").className = "bottoneAcceso";
 				break;
 			default:
 				break;
