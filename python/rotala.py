@@ -36,7 +36,8 @@ def counter():
 			
 			data = {"target": "display3", "value" : r}
 			data = json.dumps(data)
-			ws.write_message(data)			
+			ws.write_message(data)
+			
 			data = {"target": "display4", "value" : i}
 			data = json.dumps(data)
 			ws.write_message(data)
@@ -155,7 +156,71 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				ws.write_message(data)
 				return
 				
-	
+		if data["event"]=="click":
+			if data["id"]=="Left": 
+				if data["value"]=="images/navbuttonLeftON.gif":
+					data = {"target": "Left", "value" : "images/navbuttonLeft.gif"}
+					print "click"
+				else:
+					data = {"target": "Left", "value" : "images/navbuttonLeftON.gif"}
+					print "clock"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="Center": 
+				if data["value"]=="images/navbuttonCenterON.gif":
+					data = {"target": "Center", "value" : "images/navbuttonCenter.gif"}
+					print "click"
+				else:
+					data = {"target": "Center", "value" : "images/navbuttonCenterON.gif"}
+					print "clock"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="Right": 
+				if data["value"]=="images/navbuttonRightON.gif":
+					data = {"target": "Right", "value" : "images/navbuttonRight.gif"}
+					print "click"
+				else:
+					data = {"target": "Right", "value" : "images/navbuttonRightON.gif"}
+					print "clock"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="Up": 
+				if data["value"]=="images/navbuttonUpON.gif":
+					data = {"target": "Up", "value" : "images/navbuttonUp.gif"}
+					print "click"
+				else:
+					data = {"target": "Up", "value" : "images/navbuttonUpON.gif"}
+					print "clock"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+				
+		if data["event"]=="click":
+			if data["id"]=="Down": 
+				if data["value"]=="images/navbuttonDownON.gif":
+					data = {"target": "Down", "value" : "images/navbuttonDown.gif"}
+					print "click"
+				else:
+					data = {"target": "Down", "value" : "images/navbuttonDownON.gif"}
+					print "clock"
+
+				data = json.dumps(data)
+				ws.write_message(data)
+				return	
+				
 	def on_close(self):
 		print "Websocket closed"
 

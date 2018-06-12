@@ -53,7 +53,25 @@ ws.onmessage = function(ev){
 		$("#button_mode").attr("src",data.value.toString());
 	}	
 	if (data.target=="button_zero3") {
-		$("#button_mode").attr("src",data.value.toString());
+		$("#button_zero3").attr("src",data.value.toString());
+	}
+	if (data.target=="Left") {
+		$("#Left").attr("src",data.value.toString());
+	}
+	if (data.target=="Left2") {
+		$("#Left2").attr("src",data.value.toString());
+	}	
+	if (data.target=="Center") {
+		$("#Center").attr("src",data.value.toString());
+	}	
+	if (data.target=="Right") {
+		$("#Right").attr("src",data.value.toString());
+	}
+		if (data.target=="Up") {
+		$("#Up").attr("src",data.value.toString());
+	}	
+	if (data.target=="Down") {
+		$("#Down").attr("src",data.value.toString());
 	}	
 };
 
@@ -112,7 +130,7 @@ $(document).ready(function() {
 	display3.segmentDistance = 0.4;
 	display3.segmentCount    = 7;
 	display3.cornerType      = 3;
-	display3.colorOn         = "#ff330f";
+	display3.colorOn         = "#33ee0f";
 	display3.colorOff        = "#100505";
 
 	display3.setValue("0");
@@ -160,7 +178,7 @@ $(document).ready(function() {
 	display6.segmentDistance = 0.4;
 	display6.segmentCount    = 7;
 	display6.cornerType      = 3;
-	display6.colorOn         = "#ff330f";
+	display6.colorOn         = "#33ee0f";
 	display6.colorOff        = "#100505";
 
 	display6.setValue("0");	
@@ -206,8 +224,40 @@ $(document).ready(function() {
 	}); 
 	
 	$("#button_zero3").click(function(){
-		data={"event":"click","id": "button_mode","value" : $("#button_zero3").attr("src")};
+		data={"event":"click","id": "button_zero3","value" : $("#button_zero3").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
-	}); 	
+	});
+	
+		$("#Left").click(function(){
+		data={"event":"click","id": "Left","value" : $("#Left").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+		$("#Left2").click(function(){
+		data={"event":"click","id": "Left2","value" : $("#Left2").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+		$("#Center").click(function(){
+		data={"event":"click","id": "Center","value" : $("#Center").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+		$("#Right").click(function(){
+		data={"event":"click","id": "Right","value" : $("#Right").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+	$("#Up").click(function(){
+		data={"event":"click","id": "Up","value" : $("#Up").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+	
+	$("#Down").click(function(){
+		data={"event":"click","id": "Down","value" : $("#Down").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
 });

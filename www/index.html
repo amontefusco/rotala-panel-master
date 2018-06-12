@@ -315,8 +315,87 @@
 		
 /* -------------- Settings Page Properties --------------- */
 
-
+		.Input {
+			position: absolute;
+			left:  10px;		
+			width: 90px;
+			color: red;
+			text-align: left;
+			font-size: 12px;
+		}
+		.Limits {
+			position: absolute;
+			width: 50px;
+			height: 100px;
+			padding: 3px;
+			left:  5px;
+			text-align: left;			
+			color: red;
+			border-color: blue;
+		}
+		#HLimits {
+			position: absolute;		
+			left:  180px;
+			top: 360px;
+			height: 100px;
+			width: 300px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}		
+		.Pins {
+			position: fixed;
+			left:  645px;
+			width: 120px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}
+		#outPins {
+			top: 50px;
+			height: 200px;		
+		}
+		#inPins {
+			top: 260px;
+			height: 200px;		
+		}		
+		#xAxe {
+			left:  20px;
+			top: 50px;
+		}
 		
+		#yAxe {
+			left:  20px;
+			top: 190px;
+		}
+		#zAxe {
+			left:  20px;
+			top: 330px;
+		}
+		
+		.AxisSettings {
+			position: absolute;
+			height: 130px;
+			width: 130px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}
+		th {
+			color: red;
+			font-size: 12px;
+		}
+		#radio {
+			position: absolute;		
+			color: red;
+			top: 50px;
+			left: 180px;		
+		}
+		fieldset {
+			border: 1px solid #0010aa;		
+			border-radius: 8px;
+			text-align: left;
+		}
 	</style>
 	
 
@@ -390,18 +469,13 @@
 	<!-- 	<div class="triangle-down"></div> -->
 		<div class="NavButtons">
 			<img id="Left" src="images/navbuttonLeft.gif">
-			<img id="Left" src="images/navbuttonLeftON.gif">
 			<div class="imgtxt">
 				<h2 class="centered">Run</h2>
 				<img id="Center" src="images/navbuttonCenter.gif">
-				<img id="Center" src="images/navbuttonCenterON.gif">
 			</div>
 			<img id="Right" src="images/navbuttonRight.gif">
-			<img id="Right" src="images/navbuttonRightON.gif">
 			<img id="Up" src="images/navbuttonUp.gif">
-			<img id="Up" src="images/navbuttonUpOn.gif">
-			<img id="Down" src="images/navbuttonDown.gif">		
-			<img id="Down" src="images/navbuttonDownON.gif">			
+			<img id="Down" src="images/navbuttonDown.gif">				
 		</div>
 		<button class="btn x01">x 0.1</button>
 		<button class="btn x1">x 1.0</button>
@@ -420,21 +494,302 @@
 <!-- *************************************Settings Page**************************************** -->
 
 	<div id="Settings" style="display: none;">
-		<button class="btn x01">x 0.1</button>
-		<a href="" class="button4" style="background-color:#44a12e">Button 3</a>
-		Settings
-		<img id="triangle-up" src="images/navigation_buttonLeft2.gif">
 		
-		<p>Click on one of the text labels to toggle the related control:</p>
-		<form action="/action_page.php">
-		  <label for="male" style="color: white;">Male</label>
-		  <input type="radio" name="gender" id="male" value="male"><br>
-		  <label for="female" style="color: white;">Female</label>
-		  <input type="radio" name="gender" id="female" value="female"><br>
-		  <label for="other" style="color: white;">Other</label>
-		  <input type="radio" name="gender" id="other" value="other"><br><br>
-		  <input type="submit" value="Submit">
-		</form>
+		<div id="outPins" class="Pins">
+			<h4 style="color: red; margin: 3px;">Output Pins</h4>
+			<form name="htmlform" method="GET" action="Settings_form_send.php">
+				<table width="180px">
+					<tr>
+						 <td valign="top" class="Input">
+							<label for="xStep">X step</label>
+						 </td>
+						 <td valign="top">
+							<input  type="text" name="xStep" maxlength="2" size="1">
+						 </td>
+					</tr>
+					 
+					<tr>
+						<td valign="top" class="Input">
+							<label for="xDir">X dir</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="xDir" maxlength="50" size="1">
+						</td>
+					</tr>
+					<tr>
+						 <td valign="top" class="Input">
+							<label for="yStep">Y step</label>
+						 </td>
+						 <td valign="top">
+							<input  type="text" name="yStep" maxlength="2" size="1">
+						 </td>
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="yDir">Y dir</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="yDir" maxlength="50" size="1">
+						</td>
+					</tr>
+					<tr>
+						 <td valign="top" class="Input">
+							<label for="zStep">Z step</label>
+						 </td>
+						 <td valign="top">
+							<input  type="text" name="zStep" maxlength="2" size="1">
+						 </td>
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="zDir">Z dir</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="zDir" maxlength="50" size="1">
+						</td>
+					</tr>					
+				</table>
+			</form>
+		</div>
+		
+		<div id="inPins" class="Pins">
+			<h4 style="color: red; margin: 3px;">Input Pins</h4>
+			<form name="htmlform" method="GET" action="Settings_form_send.php">
+				<table width="180px">			
+					<tr>
+						<td valign="top" class="Input">
+							<label for="Sens1">Sensor1</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="Sens1" maxlength="2" size="1">
+						</td>		
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="Sens2">Sensor2</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="Sens2" maxlength="2" size="1">
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="Sens3">Sensor3</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="Sens3" maxlength="2" size="1">
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="ProbePin">Probe</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="ProbePin" maxlength="2" size="1">
+						</td>		
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="LimitPin">Limit</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="LimitPin" maxlength="2" size="1">
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" class="Input">
+							<label for="EstopPin">E-Stop</label>
+						</td>
+						<td valign="top">
+							<input  type="text" name="EstopPin" maxlength="2" size="1">
+						</td>
+					</tr>					
+				</table>
+			</form>
+		</div>
+		
+			<div class="AxisSettings" id="xAxe">
+				<h4 style="color: red; margin: 3px;">X Axis</h4>
+				<form name="htmlform" method="GET" action="html_form_send.php">
+					<table width="200px">
+						<tr>
+							 <td valign="top" class="Input">
+								<label for="xStep_mm">Step/mm</label>
+							 </td>
+							 <td valign="top">
+								<input  type="text" name="xStep_mm" maxlength="2" size="1">
+							 </td>
+						</tr>
+						 
+						<tr>
+							<td valign="top" class="Input">
+								<label for="xSpeed">Speed</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="xSpeed" maxlength="50" size="1">
+							</td>
+						</tr>
+						<tr>
+							<td valign="top" class="Input">
+								<label for="xAcceleration">Accel.</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="xAcceleration" maxlength="2" size="1">
+							</td>
+						 
+						</tr>
+						
+						<tr>
+							<td valign="top" class="Input">
+								<label for="Encoder">Encoder</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="email" maxlength="2" size="1">
+							</td>
+						</tr>							
+					</table>
+				</form>
+			</div>
+			
+			<div class="AxisSettings" id="yAxe">
+				<h4 style="color: red; margin: 3px;">Y Axis</h4>
+				<form name="Settingsform" method="GET" action="Settings_form_send.php">
+					<table width="200px">
+						<tr>
+							<td valign="top" class="Input">
+								<label for="yStep_mm">Step/mm</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="yStep_mm" maxlength="2" size="1">
+							 </td>			
+						</tr>
+						 
+						<tr>
+							<td valign="top" class="Input">
+								<label for="ySpeed">Speed</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="ySpeed" maxlength="50" size="1">
+							</td>
+						</tr>
+						<tr>
+							<td valign="top" class="Input">
+								<label for="yAcceleration">Accel.</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="yAcceleration" maxlength="2" size="1">
+							</td>
+						</tr>
+						
+						<tr>
+							<td valign="top" class="Input">
+								<label for="yEncoder">Encoder</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="yEncoder" maxlength="2" size="1">
+							</td>
+						</tr>						
+					</table>
+				</form>
+			</div>
+			
+			<div class="AxisSettings" id="zAxe">
+				<h4 style="color: red; margin: 3px;">Z Axis</h4>
+				<form name="Settingsform" method="GET" action="Settings_form_send.php">
+					<table width="200px">
+						<tr>
+							 <td valign="top" class="Input">
+								<label for="zStep_mm">Step/mm</label>
+							 </td>
+							 <td valign="top">
+								<input  type="text" name="zStep_mm" maxlength="2" size="1">
+							 </td>
+						</tr>
+						 
+						<tr>
+							<td valign="top" class="Input">
+								<label for="zSpeed">Speed</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="zSpeed" maxlength="50" size="1">
+							</td>
+						</tr>
+						
+						<tr>
+							<td valign="top" class="Input">
+								<label for="zAcceleration">Accel.</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="zAcceleration" maxlength="2" size="1">
+							</td>
+						</tr>
+						
+						<tr>
+							<td valign="top" class="Input">
+								<label for="zEncoder">Encoder</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="zEncoder" maxlength="2" size="1">
+							</td>
+						</tr>						
+					</table>
+				</form>
+			</div>
+			
+			<div id="HLimits">
+				<form name="htmlform" method="GET" action="html_form_send.php">
+					<table width="240px">
+						<tr>
+							<th>*------*</th>						
+							<th>Limit +</th>
+							<th>Limit -</th>
+						</tr>						
+						<tr>
+							 <td valign="top" class="Limits">
+								<label for="xLimits">X Axis</label>
+							 </td>
+							 <td valign="top">
+								<input  type="text" name="xLimits+" maxlength="10" size="5">
+							 </td>
+							 <td valign="top">
+								<input  type="text" name="xLimits-" maxlength="10" size="5">
+							 </td>							 
+						</tr>
+						<tr>
+							<td valign="top" class="Limits">
+								<label for="yLimits">Y Axis</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="yLimits+" maxlength="10" size="5">
+							</td>
+							<td valign="top">
+								<input  type="text" name="yLimits-" maxlength="10" size="5">
+							</td>							
+						</tr>
+						<tr>
+							<td valign="top" class="Limits">
+								<label for="zLimits">Z Axis</label>
+							</td>
+							<td valign="top">
+								<input  type="text" name="zLimits+" maxlength="4" size="5">
+							</td>
+							<td valign="top">
+								<input  type="text" name="zLimits-" maxlength="4" size="5">
+							</td>						 
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="radio">
+				<form>
+					<fieldset>
+						<legend>Decimals</legend>
+							<input type="radio" name="decimals" value="one" checked> 0.0
+							<input type="radio" name="decimals" value="two"> 0.00
+							<input type="radio" name="decimals" value="three"> 0.000
+					</fieldset>
+				</form>	
+			</div>			
 	</div>
 
 
