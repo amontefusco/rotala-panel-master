@@ -4,6 +4,11 @@ var ws = new WebSocket('ws://'+host+'/ws');
 var display1;
 var display2;
 var display3;
+var display4;
+var display5;
+var display6;
+var appoggio;
+
 
 ws.onopen = function(){
 	console.log("Websocket opened");
@@ -15,22 +20,56 @@ ws.onmessage = function(ev){
 	data=JSON.parse(ev.data);
 	
 	if (data.target=="display1") {
-		display1.setValue(data.value.toString());
+		if (data.value <10.0) {
+			display1.setValue("  "+data.value.toString());
+		} else if (data.value <100.0) {
+			display1.setValue(" "+data.value.toString());			
+		} else {
+			display1.setValue(data.value.toString());
+		}
 	}	
 	if (data.target=="display2") {
-		display2.setValue(data.value.toString());
+		if (data.value <10.0) {
+			display2.setValue("  "+data.value.toString());
+		} else if (data.value <100.0) {
+			display2.setValue(" "+data.value.toString());			
+		} else {
+			display2.setValue(data.value.toString());
+		}
 	}	
 	if (data.target=="display3") {
-		display3.setValue(data.value.toString());
+		if (data.value <10.0) {
+			display3.setValue(" "+data.value.toString());	
+		} else {
+			display3.setValue(data.value.toString());
+		}
 	}
 	if (data.target=="display4") {
-		display4.setValue(data.value.toString());
+		if (data.value <10.0) {
+			display4.setValue("  "+data.value.toString());
+		} else if (data.value <100.0) {
+			display4.setValue(" "+data.value.toString());			
+		} else {
+			display4.setValue(data.value.toString());
+		}
 	}	
-	if (data.target=="display2") {
-		display5.setValue(data.value.toString());
+	if (data.target=="display5") {
+		if (data.value <10.0) {
+			display5.setValue("  "+data.value.toString());
+		} else if (data.value <100.0) {
+			display5.setValue(" "+data.value.toString());
+		} else if (data.value <0) {
+			display5.setValue("0"+data.value.toString());
+		} else {
+			display5.setValue(data.value.toString());
+		}
 	}	
-	if (data.target=="display3") {
-		display6.setValue(data.value.toString());
+	if (data.target=="display6") {
+		if (data.value <10.0) {
+			display6.setValue(" "+data.value.toString());	
+		} else {
+			display6.setValue(data.value.toString());
+		}
 	}
 	
 	if (data.target=="abs_incr") {
@@ -100,7 +139,7 @@ $(document).ready(function() {
 	display1.colorOn         = "#ff330f";
 	display1.colorOff        = "#101515";
 
-	display1.setValue("0");
+	display1.setValue("000.0");
 
 
 	display2= new SegmentDisplay("display2");
@@ -117,11 +156,11 @@ $(document).ready(function() {
 	display2.colorOn         = "#ff330f";
 	display2.colorOff        = "#100505";
 
-	display2.setValue("0");
+	display2.setValue("000.0");
 	
 	display3= new SegmentDisplay("display3");
 
-	display3.pattern         = "###.#";
+	display3.pattern         = "##.#";
 	display3.displayAngle    = 6.5;
 	display3.digitHeight     = 32;
 	display3.digitWidth      = 17.5;
@@ -133,7 +172,7 @@ $(document).ready(function() {
 	display3.colorOn         = "#33ee0f";
 	display3.colorOff        = "#100505";
 
-	display3.setValue("0");
+	display3.setValue("00.0");
 	
 	display4= new SegmentDisplay("display4");
 
@@ -149,7 +188,7 @@ $(document).ready(function() {
 	display4.colorOn         = "#ff330f";
 	display4.colorOff        = "#100505";
 
-	display4.setValue("0");	
+	display4.setValue("000.0");	
 
 	display5= new SegmentDisplay("display5");
 
@@ -165,11 +204,11 @@ $(document).ready(function() {
 	display5.colorOn         = "#ff330f";
 	display5.colorOff        = "#100505";
 
-	display5.setValue("0");
+	display5.setValue("000.0");
 	
 	display6= new SegmentDisplay("display6");
 
-	display6.pattern         = "###.#";
+	display6.pattern         = "##.#";
 	display6.displayAngle    = 6.5;
 	display6.digitHeight     = 32;
 	display6.digitWidth      = 17.5;
@@ -181,7 +220,36 @@ $(document).ready(function() {
 	display6.colorOn         = "#33ee0f";
 	display6.colorOff        = "#100505";
 
-	display6.setValue("0");	
+	display6.setValue("00.0");
+	
+	display7= new SegmentDisplay("display7");
+
+	display7.pattern         = "##:##:##";
+	display7.displayAngle    = 6.5;
+	display7.digitHeight     = 32;
+	display7.digitWidth      = 17.5;
+	display7.digitDistance   = 3.1;
+	display7.segmentWidth    = 2.8;
+	display7.segmentDistance = 0.4;
+	display7.segmentCount    = 7;
+	display7.cornerType      = 3;
+	display7.colorOn         = "#ff330f";
+	display7.colorOff        = "#100505";
+
+	display7.setValue('zSpeed');
+	
+/*  window.setInterval('animate()', 100);
+  
+  function animate() {
+    var time    = new Date();
+    var hours   = time.getHours();
+    var minutes = time.getMinutes();
+    var seconds = time.getSeconds();
+    var value   = ((hours < 10) ? ' ' : '') + hours
+                + ':' + ((minutes < 10) ? '0' : '') + minutes
+                + ':' + ((seconds < 10) ? '0' : '') + seconds;
+    display7.setValue(value);
+  }*/
 	
 /*-- Bottom Buttons --*/
 	
@@ -257,6 +325,13 @@ $(document).ready(function() {
 	
 	$("#Down").click(function(){
 		data={"event":"click","id": "Down","value" : $("#Down").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+	
+	$("#zSpeed").click(function(){
+		var speed = $('.easy-put').val();
+		data={"event":"change","id": "zSpeed","value" : speed};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});

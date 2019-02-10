@@ -7,24 +7,48 @@ import time
 import threading
 import json
 import sys
+import smbus
+from Stepper import stepper
 
 ws=None
 t_exit=False
  
+I2C_ADDRESS = 0x36
+
+bus = smbus.SMBus(1)
+ 
 def counter():
-	i=00.0
-	z=99
-	r=45
+
+# i, z, r, valori di inizializazione dei display
+	i=0.1 # Fence Display
+	z=90  # Height Display
+	r=45  # Angle Display (used only for test purpose)
+	
 	while True:
+
+#	I2c angle position sensor initialization. (commentato in fase di test quando il sensore non è connesso) 
+		#amsb = bus.read_byte_data(I2C_ADDRESS, 0x0e)
+		#alsb = bus.read_byte_data(I2C_ADDRESS, 0x0f)
+
+		#value = amsb*256 + alsb
+		#angolo =  value*(360.0/4096)
+
+		#print "%04X %d %0.2f %0.1f     \r" % (value,value,(value*(360.0/4096)),angolo/8 ),
+		#sys.stdout.flush()
+
+		#time.sleep(0.01) # Time in seconds.
+		
 		if t_exit==True:
 			print "Bye"
 			break
-		i=i+1
-		z=z-1
-		r=r-1
-		time.sleep(1)
-		print i 
-
+# 	incrementa i valori dei display, utilizzato solo per testare i display. Da rimuovere quando in esecuzione codice reale
+		i = i + 0.1
+		if z > 0.01:
+			z -= 0.1
+		#r=angolo/8  # divide 360 angle to display 45 deg commentato quando manca il sensore
+		time.sleep(0.1)
+		print z
+# comunica i valori dei display al pannello.
 		if ws<>None:
 			data = {"target": "display1", "value" : i}
 			data = json.dumps(data)
@@ -65,6 +89,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		#print message
 		data=json.loads(message)
 		
+		# cambia lo stato del pulsante ABS in INCR nella Pagina DRO
 		if data["event"]=="click":
 			if data["id"]=="abs_incr": 
 				if data["value"]=="ABS":
@@ -221,6 +246,11 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				ws.write_message(data)
 				return	
 				
+		if data["event"]=="change":
+			if data["id"]=="zSpeed": 
+				print "xxxxxxxxxxxxxxxxxxxxxx"
+				return	
+								
 	def on_close(self):
 		print "Websocket closed"
 

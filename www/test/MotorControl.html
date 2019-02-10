@@ -1,0 +1,35 @@
+<html>
+<head>
+	<script Language="Javascript">
+		function set0()
+		{
+			document.location="cgi-bin/set0.cgi";
+		}
+		function set1()
+		{
+			document.location="cgi-bin/set1.cgi";
+		}
+		function set01()
+		{
+			document.location="cgi-bin/set01.cgi";
+		}
+		function clear01(event)
+		{
+			document.location="cgi-bin/clear01.cgi";
+		}
+	</script>
+</head>
+<body>
+    <div style="text-align:center">
+    <h1>Raspberry Pi GPIO</h1>
+
+    <img src="images/forward.jpg" id="f" onmousedown="set01()" onmouseup="clear01(event)">
+<br>
+    <img src="images/left.jpg" id="l" onmousedown="set0()" onmouseup="clear01(event)">
+    <img src="images/right.jpg" id="r" onmousedown="set1()" onmouseup="clear01(event)">
+<br>
+    <img src="images/stop.jpg" id="s" onmousedown="clear01(event)" onmouseup="clear01(event)">
+    </div>
+
+</body>
+</html>
