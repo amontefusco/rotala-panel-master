@@ -26,7 +26,7 @@ def counter():
 	
 	while True:
 
-
+#	I2c angle position sensor initialization. (commentato in fase di test quando il sensore non è connesso) 
 		#amsb = bus.read_byte_data(I2C_ADDRESS, 0x0e)
 		#alsb = bus.read_byte_data(I2C_ADDRESS, 0x0f)
 
