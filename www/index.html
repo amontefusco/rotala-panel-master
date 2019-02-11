@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="css/easy-numpad.css">
+
 
 <!-- --------------------------------------------------------------------------------- -->	
 <!-- --------------------- Codice Necessario per Keypad (easy-numpad)---------------------- -->
 <!-- --------------------------------------------------------------------------------- -->
-	
+	<link rel="stylesheet" href="css/easy-numpad.css">	
 <!-- --------------------------------------------------------------------------------- -->	
 <!-- --------------------------- Fine Codice per Keypad ------------------------------ -->
 <!-- --------------------------------------------------------------------------------- -->	
@@ -431,9 +431,13 @@
 			width: 120px;			
 		}
 		.easy-put {
-			height: 32px;
-			width: 80px;
-			font-size: 24px;
+			position: absolute;
+			top: 190px;
+			height: 60px;
+			width: 220px;
+			font-size: 46px;
+			text-align: right;
+			color: red;
 		}
 	</style>
 <!-- ########################## CSS closed ############################### -->
@@ -553,10 +557,28 @@
 
 	<div id="SetUp" style="display: none;">
 	
-		<div class="easy-get">
-			<input type="text" class="easy-put" readonly="true">
-		</div>
+
+<!--
+		*************** Numeric Keypad Input ***************
+
+    Single element usage.
+    Add "easy-get" class name where you click to get soft number pad. example -
+    Add "easy-put" class name where you want to show result. example -
+
+        Mulitple element usage.
+    Call below function in any function with any parameter you want. show_easy_numpad();
+    example -
+    function quantity(x, y, z) { show_easy_numpad(x); }
 	
+	
+	
+	document.getElementById("FenceInput").innerHTML = "Display this content";
+-->	
+
+		<div class="easy-get">
+			<input type="text" id="FenceInput" class="easy-put" readonly="true">
+		</div>
+
 		
 	</div>
 	
@@ -644,7 +666,7 @@
 	
 	
 	
-		<script type="text/javascript" src="segment-display.js"></script>
+<!--		<script type="text/javascript" src="segment-display.js"></script>
 		<script type="text/javascript">
 		
 			display7= new SegmentDisplay("display7");
