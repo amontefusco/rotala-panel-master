@@ -236,9 +236,9 @@ $(document).ready(function() {
 	display7.colorOn         = "#ff330f";
 	display7.colorOff        = "#100505";
 
-	display7.setValue('zSpeed');
+	display7.setValue('12:34:30');
 	
-/*  window.setInterval('animate()', 100);
+  window.setInterval('animate()', 100);
   
   function animate() {
     var time    = new Date();
@@ -249,7 +249,7 @@ $(document).ready(function() {
                 + ':' + ((minutes < 10) ? '0' : '') + minutes
                 + ':' + ((seconds < 10) ? '0' : '') + seconds;
     display7.setValue(value);
-  }*/
+  }
 	
 /*-- Bottom Buttons --*/
 	
@@ -329,9 +329,9 @@ $(document).ready(function() {
 		ws.send(a);
 	});
 	
-	$("#zSpeed").click(function(){
+	$("#FenceInput").click(function(){
 		var speed = $('.easy-put').val();
-		data={"event":"change","id": "zSpeed","value" : speed};
+		data={"event":"change","id": "FenceInput","value" : speed};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
