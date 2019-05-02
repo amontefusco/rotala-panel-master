@@ -16,17 +16,52 @@ t_exit=False
 I2C_ADDRESS = 0x36
 
 bus = smbus.SMBus(1)
- 
-def counter():
 
-# i, z, r, valori di inizializazione dei display
-	i=0.1 # Fence Display
+#stepper variables
+#[stepPin, directionPin, enablePin]
+runHeight = stepper([25, 26, 29])
+runFence = stepper([27, 28, 30])
+
+i=0.0 # Fence Display
+Height_Actual = 0.0		# Height Display
+Height_Target = 0.0
+
+Fence_Actual = 0.0
+Fence_Target = 0.0
+
+
+def MoveFence(ABS):
+	if ABS > 0:
+		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+	else:
+		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+
+
+def MoveHeigh(ABS):
+	if ABS > 0:
+		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
+		runHeight.cleanGPIO
+	else:
+		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
+		runHeight.cleanGPIO
+
+
+def counter():
+	global i
+	global Height_Actual
+	global Height_Target
+	global Fence_Actual
+	global Fence_Target
+	
+# i, z, r, valori di inizializazione dei display (solo test)
 	z=90  # Height Display
 	r=45  # Angle Display (used only for test purpose)
 	
 	while True:
 
-#	I2c angle position sensor initialization. (commentato in fase di test quando il sensore non è connesso) 
+# comunicazione I2C con sensore angolare
 		#amsb = bus.read_byte_data(I2C_ADDRESS, 0x0e)
 		#alsb = bus.read_byte_data(I2C_ADDRESS, 0x0f)
 
@@ -42,19 +77,22 @@ def counter():
 			print "Bye"
 			break
 # 	incrementa i valori dei display, utilizzato solo per testare i display. Da rimuovere quando in esecuzione codice reale
-		i = i + 0.1
-		if z > 0.01:
-			z -= 0.1
+		#i = i + 0.1
+		#if z > 0.01:
+		#	z -= 0.1
 		#r=angolo/8  # divide 360 angle to display 45 deg commentato quando manca il sensore
 		time.sleep(0.1)
-		print z
+		#print z
+		
+		
+		
 # comunica i valori dei display al pannello.
 		if ws<>None:
-			data = {"target": "display1", "value" : i}
+			data = {"target": "display1", "value" : Fence_Actual}
 			data = json.dumps(data)
 			ws.write_message(data)
 
-			data = {"target": "display2", "value" : z}
+			data = {"target": "display2", "value" : Height_Actual}
 			data = json.dumps(data)
 			ws.write_message(data)
 			
@@ -62,11 +100,11 @@ def counter():
 			data = json.dumps(data)
 			ws.write_message(data)
 			
-			data = {"target": "display4", "value" : i}
+			data = {"target": "display4", "value" : Fence_Actual}
 			data = json.dumps(data)
 			ws.write_message(data)
 
-			data = {"target": "display5", "value" : z}
+			data = {"target": "display5", "value" : Height_Actual}
 			data = json.dumps(data)
 			ws.write_message(data)
 			
@@ -86,6 +124,12 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 	# Gestione dei messaggi in ricezione dal Chromium
 
 	def on_message(self, message):
+		global i
+		global Height_Actual
+		global Height_Target
+		global Fence_Actual
+		global Fence_Target
+		
 		#print message
 		data=json.loads(message)
 		
@@ -246,10 +290,23 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				ws.write_message(data)
 				return	
 				
-		if data["event"]=="change":
-			if data["id"]=="zSpeed": 
-				print "xxxxxxxxxxxxxxxxxxxxxx"
-				return	
+		if data["event"]=="setup":
+			if data["id"]=="fence":
+				#print data["value"]
+				Fence_Target = float(data["value"])
+				Fence_ABSMove = Fence_Target - Fence_Actual
+				Fence_Actual = Fence_Target
+				MoveFence(Fence_ABSMove)
+				return
+				
+		if data["event"]=="setup":
+			if data["id"]=="height":
+				#print data["value"]
+				Height_Target = float(data["value"])
+				Height_ABSMove = Height_Target - Height_Actual
+				Height_Actual = Height_Target
+				MoveHeigh(Height_ABSMove)
+				return
 								
 	def on_close(self):
 		print "Websocket closed"

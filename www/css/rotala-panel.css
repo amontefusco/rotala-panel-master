@@ -1,0 +1,463 @@
+/* ----------- Generale pagina ---------------------- */
+		body {
+		overflow:hidden;				/*  elimina i cursori pagina  */
+		margin: 0px;
+		background-color: black;
+	}
+
+/* ---------------- Pages Menu ---------------------- */
+
+		#DRO {
+			width: 800px;
+			height: 480px;
+			text-align: center;
+			background-color: black;
+		}
+		#Auto {
+			width: 800px;
+			height: 480px;
+			text-align: center;
+			background-color: black;
+		}
+		#SetUp {
+			width: 800px;
+			height: 480px;
+			text-align: center;
+			background-color: black;
+		}
+		#Settings {
+			width: 800px;
+			height: 480px;
+			text-align: center;
+			background-color: black;
+		}
+		
+		
+/* ------------- Display DIV box location -------------- */	
+	
+		.Fence {
+			top:  50px;
+		}
+		.Height {
+			top:  170px;
+		}
+		.Angle {
+			top:  290px;
+		}
+		
+/* ------------ Display Div General Properties ----------- */
+		
+		.Axis {
+			color: #0010aa;
+			position: fixed;
+			left:  10px;			
+			height: 70px;
+			width: 460px;
+			border: 2px solid #0010aa;
+			border-radius: 8px;
+			text-align: left;			
+			padding: 20px;
+		}
+		
+		.Abs_Input {
+			color: #0010aa;
+			position: fixed;
+			left:  10px;			
+			height: 70px;
+			width: 360px;
+			border: 2px solid #0010aa;
+			border-radius: 8px;
+			text-align: left;			
+			padding: 20px;
+		}		
+		
+		.CenterTxt {
+			position: absolute;
+			bottom: 15px;
+		}	
+
+/* ------------ Display Counter Properties ---------------- */
+
+			
+		#display1 { 
+			position: absolute;
+			bottom: -6px;
+			left: 200px;
+			width: 250px;
+		}
+		#display2 { 
+			position: absolute;
+			bottom: -6px;			
+			left:  200px;
+			width: 250px;
+		}
+		#display3 { 
+			position: absolute;
+			bottom: 5px;			
+			left:  240px;
+			width: 200px;
+		}
+		#display4 { 
+			position: absolute;
+			bottom: -6px;
+			left: 200px;
+			width: 250px;
+		}
+		#display5 { 
+			position: absolute;
+			bottom: -6px;			
+			left:  200px;
+			width: 250px;
+		}
+		#display6 { 
+			position: absolute;
+			bottom: 5px;			
+			left:  240px;
+			width: 200px;
+		}		
+
+/* ---------- Display Counters Unit Description mm/inches -------- */
+		
+		.bottomright {
+			position: absolute;
+			bottom: -12px;
+			right: 12px;
+		}
+		
+		
+/* --------------- Menu Buttons ---------------------- */
+
+		.bottoneAcceso{
+			border-radius: 20px 20px 0px 0px;
+			background: #4CAF50;
+			padding: 0px; 
+			width: 100px;
+			height: 30px;
+			color: white;
+			border: none;
+			margin-top: 0px;
+			z-index: 100;
+		}
+		.bottoneSpento{
+			border-radius: 20px 20px 0px 0px;
+			background: #404040;
+			padding: 0px; 
+			width: 100px;
+			height: 30px;
+			color: white;
+			border: none;
+			z-index: 200;
+		}		
+
+
+/* -------------- Photo Buttons General Properties --------------- */
+		
+		
+		#button_zero1 { 
+			position: absolute;
+			top:  60px;
+			left:  530px;
+		}
+
+		#button_zero2 { 
+			position: absolute;
+			top:  180px;
+			left:  530px;
+		}
+
+		#button_zero3 { 
+			position: absolute;
+			top:  300px;
+			left:  530px;
+		}
+		
+		#button_units { 
+			position: absolute;
+			top:  60px;
+			left:  650px;
+		}		
+		
+		#button_mode { 
+			position: absolute;
+			top:  180px;
+			left:  650px;
+		}		
+
+		.triangle-up {
+			position: absolute;
+			top:  105px;
+			left:  620px;			
+			width: 0;
+			height: 0;
+			border-left: 50px solid transparent;
+			border-right: 50px solid transparent;
+			border-bottom: 80px solid #0010aa;
+		}
+		.triangle-down {
+			position: absolute;
+			top:  265px;
+			left:  620px;			
+			width: 0;
+			height: 0;
+			border-left: 50px solid transparent;
+			border-right: 50px solid transparent;
+			border-top: 80px solid #0010aa;
+		}
+		
+		.btn {
+			-webkit-border-radius: 11;
+			-moz-border-radius: 11;
+			border-radius: 11px;
+			-webkit-box-shadow: 2px 2px 10px #666666;
+			-moz-box-shadow: 2px 2px 10px #666666;
+			box-shadow: 2px 2px 10px #666666;
+			font-family: Arial;
+			color: #ffffff;
+			font-size: 20px;
+			background: #0010aa;
+			padding: 10px 10px 10px 10px;
+			border: solid #1f628d 2px;
+			text-decoration: none;
+		}
+		.btn:hover {
+			background: #4CAF50;
+			text-decoration: none;
+		}
+
+/* ######################### Button Multiplier ######################### */
+
+		.x10 {
+			position: absolute;
+			left: 720px;		
+			top: 270px;
+		}
+		.x1 {
+			position: absolute;
+			left: 630px;		
+			top: 270px;
+		}	
+		.x01 {
+			position: absolute;				
+			left: 540px;
+			top: 270px;
+		}
+
+/* ######################### Tools Buttons ######################### */
+
+		.Tool01 {
+			position: absolute;
+			left: 690px;		
+			top: 60px;
+		}
+		.Tool02 {
+			position: absolute;
+			left: 690px;		
+			top: 110px;
+		}	
+		.Tool03 {
+			position: absolute;				
+			left: 690px;
+			top: 160px;
+		}
+		
+/* -------------- TEST Button 4 TEST--------------- */		
+		a.button4{
+			position: absolute;
+			top: 200px;
+			padding:0.3em 1.2em;
+			margin:0 0.1em 0.1em 0;
+			border:2px solid rgba(255,255,255,0);
+			border-radius:2em;
+			box-sizing: border-box;
+			text-decoration:none;
+			font-weight:300;
+			color:#FFFFFF;
+			text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+			text-align:center;
+			transition: all 0.2s;
+		}
+		a.button4:hover{
+		 	border-color: rgba(255,255,255,1);
+		}
+			@media all and (max-width:30em){
+		a.button4 {
+			  display:block;
+			  margin:0.2em auto;
+			 }
+		} 	
+
+/* ################# Navigation Buttons General Properties ################### */
+
+		#Left { 
+			position: absolute;
+			top:  96px;
+			left:  561px;
+			max-width: 24%;
+			max-height: 24%;
+		}
+		#Center { 
+			position: absolute;
+			top:  72px;
+			left:  450px;
+			max-width: 55%;
+			max-height: 19%;			
+		}
+		#Center2 { 
+			position: absolute;
+			top:  180px;
+			left:  450px;
+			max-width: 55%;
+			max-height: 19%;			
+		}
+		#Right { 
+			position: absolute;
+			top:  96px;
+			left:  699px;
+			max-width: 24%;
+			max-height: 24%;
+		}
+		#Up { 
+			position: absolute;
+			top:  54px;
+			left:  601px;
+			max-width: 15%;			
+			max-height: 15%;
+		}
+		#Down { 
+			position: absolute;
+			top:  189px;
+			left:  601px;
+			max-width: 15%;
+			max-height: 15%;
+		}
+		.imgtxt {
+
+			text-align: center;
+			color: white;
+		}
+		.centered {
+			position: absolute;
+			top:  85px;
+			left:  470px;
+			text-shadow: 3px 3px 0 #202020;
+			z-index: 100;
+		}		
+		.centered2 {
+			position: absolute;
+			top:  186px;
+			left:  460px;
+			text-shadow: 3px 3px 0 #202020;
+			z-index: 100;
+		}
+
+		
+/* #################### Settings Page Properties ################## */
+
+		.Input {
+			position: absolute;
+			left:  10px;		
+			width: 90px;
+			color: red;
+			text-align: left;
+			font-size: 12px;
+		}
+		.Limits {
+			position: absolute;
+			width: 50px;
+			height: 100px;
+			padding: 3px;
+			left:  5px;
+			text-align: left;			
+			color: red;
+			border-color: blue;
+		}
+		#HLimits {
+			position: absolute;		
+			left:  180px;
+			top: 360px;
+			height: 100px;
+			width: 300px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}		
+		.Pins {
+			position: fixed;
+			left:  645px;
+			width: 120px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}
+		#outPins {
+			top: 50px;
+			height: 200px;		
+		}
+		#inPins {
+			top: 260px;
+			height: 200px;		
+		}		
+		#xAxe {
+			left:  20px;
+			top: 50px;
+		}
+		
+		#yAxe {
+			left:  20px;
+			top: 190px;
+		}
+		#zAxe {
+			left:  20px;
+			top: 330px;
+		}
+		
+		.AxisSettings {
+			position: absolute;
+			height: 130px;
+			width: 130px;
+			padding: 5px;
+			border: 1px solid #0010aa;
+			border-radius: 8px;
+		}
+		th {
+			color: red;
+			font-size: 12px;
+		}
+		#radio {
+			position: absolute;		
+			color: red;
+			top: 50px;
+			left: 180px;		
+		}
+		fieldset {
+			border: 1px solid #0010aa;		
+			border-radius: 8px;
+			text-align: left;
+		}
+		#test {
+			left:  180px;
+			top: 190px;
+			width: 120px;			
+		}
+		#FenceInput {
+			position: absolute;
+			top: 10px;
+			left: 150px;
+			height: 80px;
+			width: 230px;
+			font-size: 70px;
+			text-align: right;
+			background-color: black;
+			color: red;
+		}
+		#HeightInput {
+			position: absolute;
+			top: 10px;
+			left: 150px;
+			height: 80px;
+			width: 230px;
+			font-size: 70px;
+			text-align: right;
+			background-color: black;
+			color: red;
+		}

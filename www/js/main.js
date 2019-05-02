@@ -81,7 +81,6 @@ ws.onmessage = function(ev){
 	if (data.target=="button_units") {
 		$("#button_units").attr("src",data.value.toString());
 	}	
-
 	if (data.target=="button_mode") {
 		$("#button_mode").attr("src",data.value.toString());
 	}
@@ -102,7 +101,10 @@ ws.onmessage = function(ev){
 	}	
 	if (data.target=="Center") {
 		$("#Center").attr("src",data.value.toString());
-	}	
+	}
+	if (data.target=="Center2") {
+		$("#Center2").attr("src",data.value.toString());
+	}
 	if (data.target=="Right") {
 		$("#Right").attr("src",data.value.toString());
 	}
@@ -137,7 +139,7 @@ $(document).ready(function() {
 	display1.segmentCount    = 7;
 	display1.cornerType      = 3;
 	display1.colorOn         = "#ff330f";
-	display1.colorOff        = "#101515";
+	display1.colorOff        = "#100505";
 
 	display1.setValue("000.0");
 
@@ -280,13 +282,13 @@ $(document).ready(function() {
 	}); 
 	
 	$("#button_zero1").click(function(){
-		data={"event":"click","id": "button_mode","value" : $("#button_zero1").attr("src")};
+		data={"event":"click","id": "button_zero1","value" : $("#button_zero1").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); 
 	
 	$("#button_zero2").click(function(){
-		data={"event":"click","id": "button_mode","value" : $("#button_zero2").attr("src")};
+		data={"event":"click","id": "button_zero2","value" : $("#button_zero2").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); 
@@ -307,11 +309,11 @@ $(document).ready(function() {
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); 
-		$("#Center").click(function(){
+/*		$("#Center").click(function(){
 		data={"event":"click","id": "Center","value" : $("#Center").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
-	}); 
+	}); */
 		$("#Right").click(function(){
 		data={"event":"click","id": "Right","value" : $("#Right").attr("src")};
 		a=JSON.stringify(data);
@@ -329,10 +331,19 @@ $(document).ready(function() {
 		ws.send(a);
 	});
 	
-	$("#FenceInput").click(function(){
-		var speed = $('.easy-put').val();
-		data={"event":"change","id": "FenceInput","value" : speed};
+	
+	$("#Center").click(function(){
+		//alert("Ci sono");
+		data={"event":"setup","id":"fence", "value" :$("#FenceInput").val()};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
+	
+	$("#Center2").click(function(){
+		//alert("Ci sono");
+		data={"event":"setup","id":"height", "value" :$("#HeightInput").val()};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+	
 });
