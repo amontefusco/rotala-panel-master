@@ -286,7 +286,7 @@
 			 }
 		} 	
 
-/* ################# Navigation Buttons General Properties ################### */
+/* ------------------ Navigation Buttons General Properties ----------------- */
 
 		#Left { 
 			position: absolute;
@@ -309,6 +309,13 @@
 			max-width: 55%;
 			max-height: 19%;			
 		}
+		#Center3 { 
+			position: absolute;
+			top:  290px;
+			left:  450px;
+			max-width: 55%;
+			max-height: 19%;			
+		}		
 		#Right { 
 			position: absolute;
 			top:  96px;
@@ -449,6 +456,7 @@
 			text-align: right;
 			background-color: black;
 			color: red;
+			border: 0px;			
 		}
 		#HeightInput {
 			position: absolute;
@@ -460,4 +468,17 @@
 			text-align: right;
 			background-color: black;
 			color: red;
+			border: 0px;
+		}
+		#relativeFenceInput {
+			position: absolute;
+			top: 10px;
+			left: 150px;
+			height: 80px;
+			width: 230px;
+			font-size: 70px;
+			text-align: right;
+			background-color: black;
+			color: green;
+			border: 0px;
 		}

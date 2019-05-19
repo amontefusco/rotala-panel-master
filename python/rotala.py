@@ -307,6 +307,14 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				Height_Actual = Height_Target
 				MoveHeigh(Height_ABSMove)
 				return
+				
+		if data["event"]=="setup":
+			if data["id"]=="relativeFence":
+				print data["value"]			
+				Fence_RelativeMove = float(data["value"])
+				Fence_Actual = Fence_Actual + Fence_RelativeMove
+				MoveFence(Fence_RelativeMove)
+				return				
 								
 	def on_close(self):
 		print "Websocket closed"

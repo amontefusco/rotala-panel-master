@@ -23,7 +23,7 @@ ws.onmessage = function(ev){
 		if (data.value <10.0) {
 			display1.setValue("  "+data.value.toString());
 		} else if (data.value <100.0) {
-			display1.setValue(" "+data.value.toString());			
+			display1.setValue(" "+data.value.toString());		
 		} else {
 			display1.setValue(data.value.toString());
 		}
@@ -104,6 +104,9 @@ ws.onmessage = function(ev){
 	}
 	if (data.target=="Center2") {
 		$("#Center2").attr("src",data.value.toString());
+	}	
+	if (data.target=="Center3") {
+		$("#Center3").attr("src",data.value.toString());
 	}
 	if (data.target=="Right") {
 		$("#Right").attr("src",data.value.toString());
@@ -345,5 +348,11 @@ $(document).ready(function() {
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
+	$("#Center3").click(function(){
+		alert("Ci sono");
+		data={"event":"setup","id":"relativeFence", "value" :$("#relativeFenceInput").val()};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});	
 	
 });

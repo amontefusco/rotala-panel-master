@@ -69,7 +69,7 @@
 	<!-- ----------- Photo Buttons ------------------ -->
 	
 		<img id="button_units" src="images/mm.jpg">
-		<img id="button_mode" src="images/abs.jpg">
+	<!--	<img id="button_mode" src="images/abs.jpg"> -->
 		<img id="button_zero1" src="images/zero1.jpg">
 		<img id="button_zero2" src="images/zero2.jpg">	
 		<img id="button_zero3" src="images/zero3.jpg">
@@ -125,8 +125,8 @@
 	
 	
 	
-<!-- ********************** Pagina di TEST Numeric Keypad Input ****************************** -->
-<!-- TEST********************************* SetUP Page ************************************TEST -->
+<!-- ************************************* ********** **************************************** -->
+<!-- ************************************* SetUP Page **************************************** -->
 <!-- ************************************* ********** **************************************** -->
 
 	<div id="SetUp" style="display: none;">
@@ -140,23 +140,30 @@
 	<!-- ------------- Navigation Buttons ---------------- -->	
 		<div class="NavButtons">
 			<div class="imgtxt">
-				<h2 class="centered">Run</h2>
-				<img id="Center" src="images/navbuttonCenter.gif">
+				<!--<h2 class="centered">Run</h2>-->
+				<img id="Center" src="images/navbuttonCenterON.gif">
 			</div>
 			<div class="imgtxt">
-				<h3 class="centered2">Run<br>Height</h3>
-				<img id="Center2" src="images/navbuttonCenter.gif">
-			</div>	
+				<!--<h3 class="centered2">Run<br>Height</h3>-->
+				<img id="Center2" src="images/navbuttonCenterON.gif">
+			</div>
+			<div class="imgtxt">
+				<!--<h3 class="centered2">Run<br>Height</h3>-->
+				<img id="Center3" src="images/navbuttonCenterON.gif">
+			</div>				
 		</div>
+		<img id="button_mode" src="images/abs.jpg">
 
-		
+	<!-- ------------- Select Values ---------------- -->	
         <div class="Fence Abs_Input">
 			<h2>Fence</h2><input id="FenceInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
         </div>		
         <div class="Height Abs_Input">
 			<h2>Height</h2><input id="HeightInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
         </div>			
-		
+        <div class="Angle Abs_Input">
+			<h2>Fence Rel</h2><input id="relativeFenceInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
+        </div>		
 		
 		
 	</div>
