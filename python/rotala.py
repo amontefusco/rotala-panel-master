@@ -9,6 +9,7 @@ import json
 import sys
 import smbus
 from Stepper import stepper
+from subprocess import call
 
 ws=None
 t_exit=False
@@ -39,7 +40,7 @@ def MoveFence(ABS):
 		runFence.cleanGPIO
 
 
-def MoveHeigh(ABS):
+def MoveHeight(ABS):
 	if ABS > 0:
 		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
@@ -130,9 +131,11 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		global Fence_Actual
 		global Fence_Target
 		
-		#print message
+		print message
 		data=json.loads(message)
-		
+
+		print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
 		# cambia lo stato del pulsante ABS in INCR nella Pagina DRO
 		if data["event"]=="click":
 			if data["id"]=="abs_incr": 
@@ -305,7 +308,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				Height_Target = float(data["value"])
 				Height_ABSMove = Height_Target - Height_Actual
 				Height_Actual = Height_Target
-				MoveHeigh(Height_ABSMove)
+				MoveHeight(Height_ABSMove)
 				return
 				
 		if data["event"]=="setup":
@@ -314,7 +317,27 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				Fence_RelativeMove = float(data["value"])
 				Fence_Actual = Fence_Actual + Fence_RelativeMove
 				MoveFence(Fence_RelativeMove)
-				return				
+				return
+
+		if data["event"]=="setup":
+			if data["id"]=="relativeHeight":
+				print data["value"]			
+				Height_RelativeMove = float(data["value"])
+				Height_Actual = Height_Actual + Height_RelativeMove
+				MoveHeight(Height_RelativeMove)
+				return
+		if data["event"]=="click":
+			if data["id"]=="Shutdown":
+				call("sudo systemctl halt", shell=True)
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+		if data["event"]=="click":
+			if data["id"]=="Reboot":
+				call("sudo reboot", shell=True)
+				data = json.dumps(data)
+				ws.write_message(data)
+				return	
 								
 	def on_close(self):
 		print "Websocket closed"
@@ -323,6 +346,8 @@ application = tornado.web.Application([
 	(r'/ws', SocketHandler),
 	(r"/(.*)", tornado.web.StaticFileHandler, {"path": "../www","default_filename": "index.html"}),
 ])
+
+
 
 try:
 	t = threading.Thread(target=counter)

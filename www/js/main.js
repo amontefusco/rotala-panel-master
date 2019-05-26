@@ -297,6 +297,7 @@ $(document).ready(function() {
 	}); 
 	
 	$("#button_zero3").click(function(){
+		alert("Ci sono");
 		data={"event":"click","id": "button_zero3","value" : $("#button_zero3").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
@@ -349,10 +350,27 @@ $(document).ready(function() {
 		ws.send(a);
 	});
 	$("#Center3").click(function(){
-		alert("Ci sono");
-		data={"event":"setup","id":"relativeFence", "value" :$("#relativeFenceInput").val()};
+		//alert("Ci sono");
+		data={"event":"setup","id":"relativeFence", "value" :$("#FenceInput").val()};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+	$("#Center4").click(function(){
+		//alert("Ci sono");
+		data={"event":"setup","id":"relativeHeight", "value" :$("#HeightInput").val()};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});	
-	
+	$("#powerOff").click(function(){
+		//alert("Ci sono");
+		data={"event":"click","id":"Shutdown", "value" :$("#powerOff").val()};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});	
+	$("#reboot").click(function(){
+		//alert("Ci sono");
+		data={"event":"click","id":"Reboot", "value" :$("#reboot").val()};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});	
 });

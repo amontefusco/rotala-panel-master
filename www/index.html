@@ -72,7 +72,7 @@
 	<!--	<img id="button_mode" src="images/abs.jpg"> -->
 		<img id="button_zero1" src="images/zero1.jpg">
 		<img id="button_zero2" src="images/zero2.jpg">	
-		<img id="button_zero3" src="images/zero3.jpg">
+	<img id="button_zero3" src="images/zero3.jpg">
 		
 	</div>
 
@@ -140,19 +140,19 @@
 	<!-- ------------- Navigation Buttons ---------------- -->	
 		<div class="NavButtons">
 			<div class="imgtxt">
-				<!--<h2 class="centered">Run</h2>-->
 				<img id="Center" src="images/navbuttonCenterON.gif">
 			</div>
 			<div class="imgtxt">
-				<!--<h3 class="centered2">Run<br>Height</h3>-->
 				<img id="Center2" src="images/navbuttonCenterON.gif">
 			</div>
 			<div class="imgtxt">
-				<!--<h3 class="centered2">Run<br>Height</h3>-->
-				<img id="Center3" src="images/navbuttonCenterON.gif">
-			</div>				
+				<img id="Center3" src="images/navbuttonCenterRelativeON.gif">
+			</div>
+			<div class="imgtxt">
+				<img id="Center4" src="images/navbuttonCenterRelativeON.gif">
+			</div>			
 		</div>
-		<img id="button_mode" src="images/abs.jpg">
+	<!--	<img id="button_mode" src="images/abs.jpg"> -->
 
 	<!-- ------------- Select Values ---------------- -->	
         <div class="Fence Abs_Input">
@@ -161,9 +161,12 @@
         <div class="Height Abs_Input">
 			<h2>Height</h2><input id="HeightInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
         </div>			
-        <div class="Angle Abs_Input">
+    <!--    <div class="relFence Abs_Input">
 			<h2>Fence Rel</h2><input id="relativeFenceInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
-        </div>		
+        </div>
+        <div class="relHeight Angle Abs_Input">
+			<h2>Height Rel</h2><input id="relativeHeightInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
+        </div>		 -->
 		
 		
 	</div>
@@ -184,7 +187,14 @@
 
 	<div id="Settings" style="display: none;">
 	
-
+		<div class="imgtxt">
+			<a href="#" class="shutdown" id="powerOff">Shutdown</a>
+		</div>
+		
+		<div class="imgtxt">
+			<a href="#" class="shutdown" id="reboot">Reboot</a>
+		</div>	
+	
 	</div>
 
 	
@@ -251,39 +261,6 @@
 	</script>
 	
 	
-	
-<!--		<script type="text/javascript" src="segment-display.js"></script>
-		<script type="text/javascript">
-		
-			display7= new SegmentDisplay("display7");
-
-			display7.pattern         = "##:##:##";
-			display7.displayAngle    = 6.5;
-			display7.digitHeight     = 32;
-			display7.digitWidth      = 17.5;
-			display7.digitDistance   = 3.1;
-			display7.segmentWidth    = 2.8;
-			display7.segmentDistance = 0.4;
-			display7.segmentCount    = 7;
-			display7.cornerType      = 3;
-			display7.colorOn         = "#ff330f";
-			display7.colorOff        = "#100505";
-
-			display7.setValue('12:34:30');
-			
-		  window.setInterval('animate()', 100);
-		  
-		  function animate() {
-			var time    = new Date();
-			var hours   = time.getHours();
-			var minutes = time.getMinutes();
-			var seconds = time.getSeconds();
-			var value   = ((hours < 10) ? ' ' : '') + hours
-						+ ':' + ((minutes < 10) ? '0' : '') + minutes
-						+ ':' + ((seconds < 10) ? '0' : '') + seconds;
-			display7.setValue(value);
-		  }
-		</script>
 <!-- ############################## JavaScript END ######################################## -->
 	
 	
