@@ -1,0 +1,21 @@
+[Unit]
+Description=Launch Chromium pointing to the Rotala server
+
+# When systemd stops or restarts the app.service, the action is propagated to this unit
+PartOf=rotala.service
+# Start this unit after the rotala.service start
+After=rotala-server.service
+
+[Service]
+ExecStart=/usr/bin/xinit -bg black -fg white -geometry 132x36 \
+          -e "runuser pi \
+          -c 'chromium-browser --incognito  -kiosk --window-position=0,0 --window-size=800,480 http://127.0.0.1/'"
+
+Restart=on-abort
+User=root
+WorkingDirectory=/home/pi
+
+[Install]
+# This unit should start when rotala.service is starting
+WantedBy=rotala.service
+
