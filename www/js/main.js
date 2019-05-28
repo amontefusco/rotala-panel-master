@@ -85,10 +85,16 @@ ws.onmessage = function(ev){
 		$("#button_mode").attr("src",data.value.toString());
 	}
 	if (data.target=="button_zero1") {
-		$("#button_mode").attr("src",data.value.toString());
+		$("#button_zero1").attr("src",data.value.toString());
 	}	
 	if (data.target=="button_zero2") {
-		$("#button_mode").attr("src",data.value.toString());
+		$("#button_zero2").attr("src",data.value.toString());
+	}
+	if (data.target=="fence_homing") {
+		$("#fence_homing").attr("src",data.value.toString());
+	}	
+	if (data.target=="height_homing") {
+		$("#height_homing").attr("src",data.value.toString());
 	}	
 	if (data.target=="button_zero3") {
 		$("#button_zero3").attr("src",data.value.toString());
@@ -303,12 +309,12 @@ $(document).ready(function() {
 		ws.send(a);
 	});
 	
-		$("#Left").click(function(){
+	$("#Left").click(function(){
 		data={"event":"click","id": "Left","value" : $("#Left").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
-		$("#Left2").click(function(){
+	$("#Left2").click(function(){
 		data={"event":"click","id": "Left2","value" : $("#Left2").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
@@ -318,7 +324,7 @@ $(document).ready(function() {
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); */
-		$("#Right").click(function(){
+	$("#Right").click(function(){
 		data={"event":"click","id": "Right","value" : $("#Right").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
@@ -360,7 +366,19 @@ $(document).ready(function() {
 		data={"event":"setup","id":"relativeHeight", "value" :$("#HeightInput").val()};
 		a=JSON.stringify(data);
 		ws.send(a);
-	});	
+	});
+	$("#fence_homing").click(function(){
+		data={"event":"click","id": "fence_homing","value" : $("#fence_homing").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+	
+	$("#height_homing").click(function(){
+		//alert("Ci sono");
+		data={"event":"click","id": "height_homing","value" : $("#height_homing").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
 	$("#powerOff").click(function(){
 		//alert("Ci sono");
 		data={"event":"click","id":"Shutdown", "value" :$("#powerOff").val()};

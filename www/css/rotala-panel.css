@@ -187,7 +187,19 @@
 			position: absolute;
 			top:  180px;
 			left:  650px;
-		}		
+		}
+
+		#fence_homing { 
+			position: absolute;
+			top:  350px;
+			left:  160px;
+		}
+
+		#height_homing { 
+			position: absolute;
+			top:  350px;
+			left:  280px;
+		}
 
 		.triangle-up {
 			position: absolute;
@@ -294,7 +306,7 @@
 
 /* ------------------ Navigation Buttons General Properties ----------------- */
 
-		#test01 { 
+		#test01 {
 			position: absolute;
 			top:  72px;
 			left:  550px;
@@ -302,7 +314,7 @@
 			max-height: 19%;			
 		}
 		
-		#Left { 
+		#Left {
 			position: absolute;
 			top:  96px;
 			left:  561px;

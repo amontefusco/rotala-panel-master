@@ -11,6 +11,10 @@ import smbus
 from Stepper import stepper
 from subprocess import call
 
+# import RPi.GPIO as GPIO # https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(channel, GPIO.IN, initial=GPIO.LOW)
+
 ws=None
 t_exit=False
  
@@ -18,12 +22,12 @@ I2C_ADDRESS = 0x36
 
 bus = smbus.SMBus(1)
 
-#stepper variables
+#------stepper variables--------*
 #[stepPin, directionPin, enablePin]
 runHeight = stepper([25, 26, 29])
 runFence = stepper([27, 28, 30])
 
-i=0.0 # Fence Display
+#i=0.0 # Fence Display
 Height_Actual = 0.0		# Height Display
 Height_Target = 0.0
 
@@ -32,7 +36,7 @@ Fence_Target = 0.0
 
 
 def MoveFence(ABS):
-	if ABS > 0:
+	if ABS > 0: # set Rotation Direction
 		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
 	else:
@@ -41,23 +45,37 @@ def MoveFence(ABS):
 
 
 def MoveHeight(ABS):
-	if ABS > 0:
+	if ABS > 0: # set Rotation Direction
 		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
 	else:
 		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
 
+def fenceHoming(channel):
+	print('fenceHoming')
+	while GPIO.input(channel) == GPIO.LOW:
+		time.sleep(0.01);
+		runFence.step(20000, "left"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+	
+def heightHoming(channel):
+	print('heightHoming')
+#	GPIO.wait_for_edge(channel, GPIO.RISING)
+	while GPIO.input(channel) == GPIO.LOW:
+		time.sleep(0.01);
+		runHeight.step(2000, "right"); #steps, dir, speed, stayOn
+		runHeight.cleanGPIO
 
 def counter():
-	global i
+#	global i
 	global Height_Actual
 	global Height_Target
 	global Fence_Actual
 	global Fence_Target
 	
 # i, z, r, valori di inizializazione dei display (solo test)
-	z=90  # Height Display
+#	z=90  # Height Display
 	r=45  # Angle Display (used only for test purpose)
 	
 	while True:
@@ -83,7 +101,6 @@ def counter():
 		#	z -= 0.1
 		#r=angolo/8  # divide 360 angle to display 45 deg commentato quando manca il sensore
 		time.sleep(0.1)
-		#print z
 		
 		
 		
@@ -125,7 +142,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 	# Gestione dei messaggi in ricezione dal Chromium
 
 	def on_message(self, message):
-		global i
+		#global i
 		global Height_Actual
 		global Height_Target
 		global Fence_Actual
@@ -134,7 +151,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		print message
 		data=json.loads(message)
 
-		print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+		#print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 		# cambia lo stato del pulsante ABS in INCR nella Pagina DRO
 		if data["event"]=="click":
@@ -150,6 +167,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 				ws.write_message(data)
 				return
 
+		# cambia lo stato del pulsante mm in inch nella Pagina DRO		
 		if data["event"]=="click":
 			if data["id"]=="mm_inch": 
 				if data["value"]=="MM":
@@ -211,6 +229,28 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					data = {"target": "button_zero2", "value" : "images/zero2.jpg"}
 					print "Height Zero"
 
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+		if data["event"]=="click":
+			if data["id"]=="height_homing": 
+				if data["value"]=="images/HeightNoHome.jpg":
+					data = {"target": "height_homing", "value" : "images/HeightHomeG.jpg"}
+					print "Height Homed"
+				else:
+					data = {"target": "height_homing", "value" : "images/HeightNoHome.jpg"}
+					print "Height Homing"
+				data = json.dumps(data)
+				ws.write_message(data)
+				return
+		if data["event"]=="click":
+			if data["id"]=="fence_homing": 
+#				if data["value"]=="images/FenceNoHome.jpg":
+				data = {"target": "fence_homing", "value" : "images/FenceHomeG.jpg"}
+				print "Height Homed"
+#				else:
+#					data = {"target": "fence_homing", "value" : "images/FenceNoHome.jpg"}
+#					print "Height Homing"
 				data = json.dumps(data)
 				ws.write_message(data)
 				return
