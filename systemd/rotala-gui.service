@@ -1,20 +1,32 @@
+# /etc/systemd/system/rotala-gui.service
 [Unit]
 Description=Launch Chromium pointing to the Rotala server
 
 # When systemd stops or restarts the app.service, the action is propagated to this unit
 PartOf=rotala.service
-# Start this unit after the rotala.service start
+# Start this unit after the rotala-server.service (the python server rotala.py)
 After=rotala-server.service
 
 [Service]
+
+# turn off display before start of current services
+ExecStartPre=/usr/bin/pigs w 22 1
+
+# both stdout and stderr are redirected to /dev/null, so no annoying messages are shown 
 ExecStart=/bin/bash -c '/usr/bin/xinit -bg black -fg white -geometry 132x36 \
           -e "runuser pi -c \'chromium-browser --incognito  -kiosk --window-position=0,0 --window-size=800,480 http://127.0.0.1/\' 1>/dev/null 2>&1" \
           -- -nocursor -s 0 -dpms \
           1>/dev/null 2>&1'
 
+# turn on again the display just after the service has been started
+ExecStartPost=/usr/bin/pigs w 22 0
+
 Restart=on-abort
 User=root
 WorkingDirectory=/home/pi
+
+# turn off CM3-Panel display after stop
+ExecStopPost=/usr/bin/pigs w 22 1
 
 [Install]
 # This unit should start when rotala.service is starting
