@@ -1,0 +1,20 @@
+# /etc/systemd/system/rotala-server.service
+# /etc/systemd/system/rotala-server.service
+[Unit]
+Description=Launch of rotala.py
+
+# When systemd stops or restarts the app.service, the action is propagated to this unit
+PartOf=rotala.service
+# Start this unit after the rotala.service start
+After=rotala.service
+
+
+[Service]
+WorkingDirectory=/home/pi/rotala-panel-master/python
+ExecStart=/bin/bash -c "stdbuf -oL /usr/bin/python rotala.py 1>&2"
+Restart=on-abort
+User=root
+
+[Install]
+WantedBy=rotala.service
+
