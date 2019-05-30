@@ -151,7 +151,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 		print message
 		data=json.loads(message)
 
-		#print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#		print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 		# cambia lo stato del pulsante ABS in INCR nella Pagina DRO
 		if data["event"]=="click":
@@ -247,7 +247,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 			if data["id"]=="fence_homing": 
 #				if data["value"]=="images/FenceNoHome.jpg":
 				data = {"target": "fence_homing", "value" : "images/FenceHomeG.jpg"}
-				print "Height Homed"
+				print "Fence Homed"
 #				else:
 #					data = {"target": "fence_homing", "value" : "images/FenceNoHome.jpg"}
 #					print "Height Homing"
