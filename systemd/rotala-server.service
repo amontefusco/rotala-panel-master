@@ -1,4 +1,5 @@
 # /etc/systemd/system/rotala-server.service
+# /etc/systemd/system/rotala-server.service
 [Unit]
 Description=Launch of rotala.py
 
@@ -10,7 +11,7 @@ After=rotala.service
 
 [Service]
 WorkingDirectory=/home/pi/rotala-panel-master/python
-ExecStart=/usr/bin/python rotala.py
+ExecStart=/bin/bash -c "stdbuf -oL /usr/bin/python rotala.py 1>&2"
 Restart=on-abort
 User=root
 
