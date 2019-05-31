@@ -1,7 +1,7 @@
 # /etc/systemd/system/rotala.service
 [Unit]
 Description=Rotala
-After=multi-user.target
+
 
 [Service]
 # The dummy program will exit
@@ -13,7 +13,7 @@ RemainAfterExit=yes
 
 [Install]
 # Components of this application should be started at boot time
-WantedBy=graphical.target
+WantedBy=local-fs.target
 
 
 
