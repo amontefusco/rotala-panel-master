@@ -67,10 +67,11 @@ def fenceHoming(channel):
 def heightHoming(channel):
 	print('heightHoming')
 #	GPIO.wait_for_edge(channel, GPIO.RISING)
-	while GPIO.input(channel) == GPIO.LOW:
-		time.sleep(0.01);
-		runHeight.step(2000, "right"); #steps, dir, speed, stayOn
-		runHeight.cleanGPIO
+#	while GPIO.input(channel) == GPIO.LOW:
+	time.sleep(0.01);
+	runHeight.step(channel, "right"); #steps, dir, speed, stayOn
+	print('heightHomed')
+	runHeight.cleanGPIO
 
 def counter():
 #	global i
@@ -242,11 +243,12 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 			if data["event"]=="click":
 				if data["id"]=="height_homing":
 					if data["value"]=="images/HeightNoHome.jpg":
+						heightHoming(2000)
 						data = {"target": "height_homing", "value" : "images/HeightHomeG.jpg"}
-						print "Height Homed"
+#						print "Height Homed"
 					else:
 						data = {"target": "height_homing", "value" : "images/HeightNoHome.jpg"}
-						print "Height Homing"
+#						print "Height Homing"
 					data = json.dumps(data)
 					ws.write_message(data)
 					return
