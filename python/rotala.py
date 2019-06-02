@@ -245,10 +245,8 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					if data["value"]=="images/HeightNoHome.jpg":
 						heightHoming(2000)
 						data = {"target": "height_homing", "value" : "images/HeightHomeG.jpg"}
-#						print "Height Homed"
 					else:
 						data = {"target": "height_homing", "value" : "images/HeightNoHome.jpg"}
-#						print "Height Homing"
 					data = json.dumps(data)
 					ws.write_message(data)
 					return

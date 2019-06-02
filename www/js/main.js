@@ -20,52 +20,66 @@ ws.onmessage = function(ev){
 	data=JSON.parse(ev.data);
 	
 	if (data.target=="display1") {
-		if (data.value <10.0) {
+		if (data.value <= -10.0) {
+			display1.setValue(data.value.toString());
+		} else if (data.value < 0.0) {
+			display1.setValue(" "+data.value.toString());
+		} else if (data.value < 10.0) {
 			display1.setValue("  "+data.value.toString());
-		} else if (data.value <100.0) {
+		} else if (data.value < 100.0) {
 			display1.setValue(" "+data.value.toString());		
 		} else {
 			display1.setValue(data.value.toString());
 		}
 	}	
 	if (data.target=="display2") {
-		if (data.value <10.0) {
+		if (data.value <= -10.0) {
+			display2.setValue(data.value.toString());
+		} else if (data.value < 0.0) {
+			display2.setValue(" "+data.value.toString());			
+		} else if (data.value < 10.0) {
 			display2.setValue("  "+data.value.toString());
-		} else if (data.value <100.0) {
+		} else if (data.value < 100.0) {
 			display2.setValue(" "+data.value.toString());			
 		} else {
 			display2.setValue(data.value.toString());
 		}
 	}	
 	if (data.target=="display3") {
-		if (data.value <10.0) {
+		if (data.value < 10.0) {
 			display3.setValue(" "+data.value.toString());	
 		} else {
 			display3.setValue(data.value.toString());
 		}
 	}
 	if (data.target=="display4") {
-		if (data.value <10.0) {
+		if (data.value <= -10.0) {
+			display4.setValue(data.value.toString());
+		} else if (data.value < 0.0) {
+			display4.setValue(" "+data.value.toString());			
+		} else if (data.value < 10.0) {
 			display4.setValue("  "+data.value.toString());
-		} else if (data.value <100.0) {
+		} else if (data.value < 100.0) {
 			display4.setValue(" "+data.value.toString());			
 		} else {
 			display4.setValue(data.value.toString());
 		}
 	}	
 	if (data.target=="display5") {
-		if (data.value <10.0) {
+		if (data.value <=-10.0) {
+			display5.setValue(data.value.toString());
+		} else if (data.value < 0.0) {
+			display5.setValue(" "+data.value.toString());			
+		} else if (data.value < 10.0) {
 			display5.setValue("  "+data.value.toString());
-		} else if (data.value <100.0) {
-			display5.setValue(" "+data.value.toString());
-		} else if (data.value <0) {
-			display5.setValue("0"+data.value.toString());
+		} else if (data.value < 100.0) {
+			display5.setValue(" "+data.value.toString());			
 		} else {
 			display5.setValue(data.value.toString());
 		}
 	}	
 	if (data.target=="display6") {
-		if (data.value <10.0) {
+		if (data.value < 10.0) {
 			display6.setValue(" "+data.value.toString());	
 		} else {
 			display6.setValue(data.value.toString());
