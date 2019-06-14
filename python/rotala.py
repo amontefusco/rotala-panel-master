@@ -16,9 +16,12 @@ from subprocess import call
 import traceback
 
 
-# import RPi.GPIO as GPIO # https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(channel, GPIO.IN, initial=GPIO.LOW)
+import RPi.GPIO as GPIO # https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(34, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+homePin = GPIO.input(34)
+GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+probePin = GPIO.input(31)
 
 ws=None
 t_exit=False
@@ -39,40 +42,188 @@ Height_Target = 0.0
 Fence_Actual = 0.0
 Fence_Target = 0.0
 
+# Position variables
+FenceHomePos = 0.0			# Sensor Position for Fence Homing
+FenceMaxLimit = 400.0		# Maximum Fence Travel (mechanical limited)
+HeightHomePos = 0.0			# Sensor Position for Height Homing ( completely retracted)
+HeightMaxLimit = 100.0		# Maximum Fence Travel (mechanical limited)
 
-def MoveFence(ABS):
-	if ABS > 0: # set Rotation Direction
-		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
-		runFence.cleanGPIO
-	else:
-		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
-		runFence.cleanGPIO
+# Homing Variables
+HomeSearchSpeed = 300		# Velocity for initially finding the homing switch
+HomeLachingSpeed = 20		# Velocity for latching phase 
+HomeLachBackoff = 10		# Distance (mm) to back off switch during latch and for clears
+HomeZeroBackoff = 12		# Distance (mm) to back off switch before setting machine coordinate system zero
+HomeIgnoreLimits = False	# Set true when Homing
+FenceHomeDir = "left"		# Fence Direction when Homing
+HeightHomeDir =	"right"		# Height Direction when Homing
+
+# Zero Variables
+HeightZero = 0.0
+FenceZero = 0.0
+TouchPlateDim = 20				# Touch Plate dimension
+FenceOffsetDiameter = 6			# Set the offset for the touch probe equal to diameter/2 + touch plate dimension
+AbsoluteCoordinates = True		# Absolute coordinate system (aka machine coordinate system)
+RelativeCoordinates = False		# Set relative mode (Offsets from Absolute Coordinates)
+probeDistance = 60				# Preset Max distance when moving for Auto Zero
 
 
-def MoveHeight(ABS):
-	if ABS > 0: # set Rotation Direction
-		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
-		runHeight.cleanGPIO
-	else:
-		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
-		runHeight.cleanGPIO
+def fenceFineHoming():
+	print('Fence Fine Homing Started')
+	GPIO.add_event_detect(34, GPIO.RISING)
 
-def fenceHoming(channel):
-	print('fenceHoming')
-	while GPIO.input(channel) == GPIO.LOW:
-		time.sleep(0.01);
-		runFence.step(20000, "left"); #steps, dir, speed, stayOn
-		runFence.cleanGPIO
+	while True:
+		runFence.step(1, "left"); #steps, dir, speed, stayOn	
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
+			runFence.step(10, "right")
+			break
+	runFence.cleanGPIO
+	data = {"target": "fence_homing", "value" : "images/FenceHomeG.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	print('Fence Fine Homed')
 
-def heightHoming(channel):
-	print('heightHoming')
-#	GPIO.wait_for_edge(channel, GPIO.RISING)
-#	while GPIO.input(channel) == GPIO.LOW:
-	time.sleep(0.01);
-	runHeight.step(channel, "right"); #steps, dir, speed, stayOn
-	print('heightHomed')
+
+def fenceHoming():
+	global FenceHomePos
+	global Fence_Actual
+	data = {"target": "fence_homing", "value" : "images/FenceNoHome.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	print('Fence Homing Started')
+	GPIO.add_event_detect(34, GPIO.RISING)
+#	try:
+	while True:
+		runFence.step(100, "left"); #steps, dir, speed, stayOn
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
+			time.sleep(0.5)
+			runFence.step(150, "right")
+			time.sleep(0.5)
+			runFence.cleanGPIO
+			fenceFineHoming()
+			break
+#		except KeyboardInterrupt:
+			# here you put any code you want to run before the program
+			# exits when you press CTRL+C
+#			print "Aborted"
+#		except:
+			# this catches ALL other exceptions including errors.
+			# You won't get any error messages for debugging
+			# so only use it once your code is working
+#			print "Other error or exception occurred!"
+#		finally:
+#	runFence.cleanGPIO
+	print('Fence Homed')
+	FenceHomePos = 0.0
+	Fence_Actual = 0.1
+
+
+def heightFineHoming():
+	print('Height Fine Homing Started')
+	GPIO.add_event_detect(34, GPIO.RISING)
+	while True:
+		runHeight.step(1, "left"); #steps, dir, speed, stayOn
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
+			runHeight.step(10, "right")
+			break
 	runHeight.cleanGPIO
+	data = {"target": "height_homing", "value" : "images/HeightHomeG.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	print('Height Fine Homed')
 
+
+def heightHoming():
+	global HeightHomePos
+	global Height_Actual
+	data = {"target": "height_homing", "value" : "images/HeightNoHome.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	print('Height Homing Started')
+	GPIO.add_event_detect(34, GPIO.RISING)
+#	try:
+	while True:
+		runHeight.step(100, "left"); #steps, dir, speed, stayOn	
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
+			time.sleep(0.5)
+			runHeight.step(150, "right")
+			time.sleep(0.5)
+			runHeight.cleanGPIO
+			heightFineHoming()
+			break
+#		except KeyboardInterrupt:
+			# here you put any code you want to run before the program   
+			# exits when you press CTRL+C  
+#			print "Aborted"
+#		except:
+			# this catches ALL other exceptions including errors.  
+			# You won't get any error messages for debugging  
+			# so only use it once your code is working  
+#			print "Other error or exception occurred!"
+#		finally:
+	print('Height Homed')
+	Height_Actual = 0.1
+	HeightHomePos = 10
+	
+	
+	
+def zeroFence():
+	global FenceZero
+	global Fence_Actual
+	print('Height Zero Started')
+	GPIO.add_event_detect(31, GPIO.RISING)
+#	try:
+	while True:
+		runFence.step(1, "left"); #steps, dir, speed, stayOn	
+		if GPIO.event_detected(31):
+			GPIO.remove_event_detect(31)
+#			runFence.step(probeDistance, "right"); #steps, dir, speed, stayOn
+#			time.sleep(0.5)
+			runFence.cleanGPIO
+#			FenceFineZero()
+			break	
+	print('Fence Zeroed')
+	Fence_Actual = 0.1
+	FenceZero = 0.0
+
+def zeroHeight():
+	global HeightZero
+	global Height_Actual
+#	data = {"target": "xxxxxx", "value" : "images/xxxxx.jpg"}
+#	data = json.dumps(data)
+#	ws.write_message(data)
+	print('Height Zero Started')
+	GPIO.add_event_detect(31, GPIO.RISING)
+#	try:
+	while True:
+		runHeight.step(1, "left"); #steps, dir, speed, stayOn	
+		if GPIO.event_detected(31):
+			GPIO.remove_event_detect(31)
+#			runHeight.step(probeDistance, "right"); #steps, dir, speed, stayOn
+#			time.sleep(0.5)
+			runHeight.cleanGPIO
+#			heightFineZero()
+			break
+#		except KeyboardInterrupt:
+			# here you put any code you want to run before the program   
+			# exits when you press CTRL+C  
+#			print "Aborted"
+#		except:
+			# this catches ALL other exceptions including errors.  
+			# You won't get any error messages for debugging  
+			# so only use it once your code is working  
+#			print "Other error or exception occurred!"
+#		finally:
+	print('Height Zeroed')
+	Height_Actual = 0.1
+	HeightZero = 0.0
+	
+	
+
+	
 def counter():
 #	global i
 	global Height_Actual
@@ -159,8 +310,6 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 
 		try:
 
-#			print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-
 			# cambia lo stato del pulsante ABS in INCR nella Pagina DRO
 			if data["event"]=="click":
 				if data["id"]=="abs_incr":
@@ -240,27 +389,21 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					data = json.dumps(data)
 					ws.write_message(data)
 					return
+					
+	# ------------------ Homing Buttons -----------------------
+					
 			if data["event"]=="click":
 				if data["id"]=="height_homing":
-					if data["value"]=="images/HeightNoHome.jpg":
-						heightHoming(2000)
-						data = {"target": "height_homing", "value" : "images/HeightHomeG.jpg"}
-					else:
-						data = {"target": "height_homing", "value" : "images/HeightNoHome.jpg"}
-					data = json.dumps(data)
-					ws.write_message(data)
+					heightHoming()
 					return
+					
 			if data["event"]=="click":
 				if data["id"]=="fence_homing":
-#					if data["value"]=="images/FenceNoHome.jpg":
-					data = {"target": "fence_homing", "value" : "images/FenceHomeG.jpg"}
-					print "Fence Homed"
-#					else:
-#						data = {"target": "fence_homing", "value" : "images/FenceNoHome.jpg"}
-#						print "Height Homing"
-					data = json.dumps(data)
-					ws.write_message(data)
+					fenceHoming()
 					return
+	# ---------------------------------------------------------				
+					
+					
 
 			if data["event"]=="click":
 				if data["id"]=="button_zero3":
