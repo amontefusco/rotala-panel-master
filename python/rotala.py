@@ -78,7 +78,7 @@ def MoveFence(ABS):
 		runFence.cleanGPIO
 
 
-def MoveHeigh(ABS):
+def MoveHeight(ABS):
 	if ABS > 0:
 		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
