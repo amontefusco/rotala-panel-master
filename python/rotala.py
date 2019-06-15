@@ -23,6 +23,7 @@ homePin = GPIO.input(34)
 GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 probePin = GPIO.input(31)
 
+
 ws=None
 t_exit=False
 
@@ -35,11 +36,11 @@ bus = smbus.SMBus(1)
 runHeight = stepper([25, 26, 29])
 runFence = stepper([27, 28, 30])
 
-#i=0.0 # Fence Display
-Height_Actual = 0.0		# Height Display
+
+Height_Actual = 0.0		# Height Display Value
 Height_Target = 0.0
 
-Fence_Actual = 0.0
+Fence_Actual = 0.0		# Fence Display Value
 Fence_Target = 0.0
 
 # Position variables
@@ -61,10 +62,31 @@ HeightHomeDir =	"right"		# Height Direction when Homing
 HeightZero = 0.0
 FenceZero = 0.0
 TouchPlateDim = 20				# Touch Plate dimension
-FenceOffsetDiameter = 6			# Set the offset for the touch probe equal to diameter/2 + touch plate dimension
+FenceOffsetRadius = 6			# Set the offset for the touch probe equal to diameter/2 + touch plate dimension
 AbsoluteCoordinates = True		# Absolute coordinate system (aka machine coordinate system)
 RelativeCoordinates = False		# Set relative mode (Offsets from Absolute Coordinates)
 probeDistance = 60				# Preset Max distance when moving for Auto Zero
+
+
+
+def MoveFence(ABS):
+	if ABS > 0:
+		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+	else:
+		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+
+
+def MoveHeigh(ABS):
+	if ABS > 0:
+		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
+		runHeight.cleanGPIO
+	else:
+		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
+		runHeight.cleanGPIO
+
+
 
 
 def fenceFineHoming():
@@ -173,6 +195,8 @@ def heightHoming():
 def zeroFence():
 	global FenceZero
 	global Fence_Actual
+#	global TouchPlateDim
+#	global FenceOffsetRadius
 	print('Height Zero Started')
 	GPIO.add_event_detect(31, GPIO.RISING)
 #	try:
@@ -186,7 +210,7 @@ def zeroFence():
 #			FenceFineZero()
 			break	
 	print('Fence Zeroed')
-	Fence_Actual = 0.1
+	Fence_Actual = TouchPlateDim + FenceOffsetRadius
 	FenceZero = 0.0
 
 def zeroHeight():
