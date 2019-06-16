@@ -330,31 +330,34 @@
 		}
 		#Center { 
 			position: absolute;
-			top:  62px;
+			top:  55px;
 			left:  580px;
-			max-width: 55%;
-			max-height: 19%;			
+/*			max-width: 55%;
+			max-height: 19%;	*/		
+		}
+		#Center1 { 
+			position: absolute;
+			top:  105px;
+			left:  300px;
+			max-width: 19%;
+			max-height: 19%;
+/*			border: 2px;
+			border-color: white; */
 		}
 		#Center2 { 
 			position: absolute;
-			top:  180px;
-			left:  580px;
-			max-width: 55%;
-			max-height: 19%;			
+			top:  175px;
+			left:  580px;			
 		}
 		#Center3 { 
 			position: absolute;
-			top:  62px;
+			top:  55px;
 			left:  10px;
-			max-width: 55%;
-			max-height: 19%;			
 		}
 		#Center4 { 
 			position: absolute;
-			top:  180px;
-			left:  10px;
-			max-width: 55%;
-			max-height: 19%;			
+			top:  175px;
+			left:  10px;		
 		}		
 		#Up { 
 			position: absolute;
@@ -536,8 +539,8 @@
 
 		#FenceInput {
 			position: absolute;
-			top: 10px;
-			left: 150px;
+			top: 15px;
+			left: 140px;
 			height: 80px;
 			width: 230px;
 			font-size: 70px;
@@ -548,8 +551,8 @@
 		}
 		#HeightInput {
 			position: absolute;
-			top: 10px;
-			left: 150px;
+			top: 15px;
+			left: 140px;
 			height: 80px;
 			width: 230px;
 			font-size: 70px;

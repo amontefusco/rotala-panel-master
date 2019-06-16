@@ -56,7 +56,7 @@ class stepper:
 		stepCounter = 0
 	
 		waitTime = 0.0010/speed #waitTime controls speed
-
+		steps=abs(steps)
 		while stepCounter < steps:
 			#gracefully exit if ctr-c is pressed
 			#exitHandler.exitPoint(True) #exitHandler.exitPoint(True, cleanGPIO)

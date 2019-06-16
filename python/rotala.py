@@ -70,22 +70,48 @@ probeDistance = 60				# Preset Max distance when moving for Auto Zero
 
 
 def MoveFence(ABS):
+	data = {"target": "Center", "value" : "images/RunningToAbs.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
 	if ABS > 0:
 		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
 	else:
 		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
+	time.sleep(0.5)
+	data = {"target": "Center", "value" : "images/RunToAbs.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	
+def MoveFenceRel(ABS):
+	data = {"target": "Center3", "value" : "images/MovingRel.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	if ABS > 0:
+		runFence.step(ABS*200, "left"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+	else:
+		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
+		runFence.cleanGPIO
+	data = {"target": "Center3", "value" : "images/MoveRel.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
 
 
 def MoveHeight(ABS):
+	data = {"target": "Center2", "value" : "images/RunningToAbs.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
 	if ABS > 0:
 		runHeight.step(ABS*200, "left"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
 	else:
 		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
-
+	data = {"target": "Center2", "value" : "images/RunToAbs.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
 
 
 

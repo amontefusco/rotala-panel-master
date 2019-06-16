@@ -104,10 +104,10 @@
 	<!-- ------------- Navigation Buttons ---------------- -->	
 		<div class="NavButtons">
 			<img id="Left" src="images/navbuttonLeft.gif">
-			<!--<div class="imgtxt">
-				<h2 class="centered">Run</h2>
-				<img id="Center" src="images/navbuttonCenter.gif">
-			</div>-->
+			<div class="imgtxt">
+			<!--	<h2 class="centered">Run</h2> -->
+				<img id="Center1" src="images/navbuttonCenter.gif">
+			</div>
 			<img id="Right" src="images/navbuttonRight.gif">
 			<img id="Up" src="images/navbuttonUp.gif">
 			<img id="Down" src="images/navbuttonDown.gif">				
@@ -139,27 +139,21 @@
 
 	<!-- ------------- Navigation Buttons ---------------- -->	
 		<div class="NavButtons">
-			<div class="imgtxt">
-				<img id="Center" src="images/navbuttonCenterON.gif">
-			</div>
-			<div class="imgtxt">
-				<img id="Center2" src="images/navbuttonCenterON.gif">
-			</div>
-			<div class="imgtxt">
-				<img id="Center3" src="images/navbuttonCenterRelativeON.gif">
-			</div>
-			<div class="imgtxt">
-				<img id="Center4" src="images/navbuttonCenterRelativeON.gif">
-			</div>			
+			<img id="Center" src="images/RunToAbs.jpg">
+			<img id="Center2" src="images/RunToAbs.jpg">
+			<img id="Center3" src="images/MoveRel.jpg">
+			<img id="Center4" src="images/MoveRel.jpg">	
 		</div>
 	<!--	<img id="button_mode" src="images/abs.jpg"> -->
 
 	<!-- ------------- Select Values ---------------- -->	
         <div class="Fence Abs_Input">
-			<h2>Fence</h2><input id="FenceInput" type="number" min="-50" max="999" readonly="true" onclick="show_easy_numpad(this);" />
+			<h2>Fence</h2><input id="FenceInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
+			<h5 class="bottomright">mm</h5>	
         </div>		
         <div class="Height Abs_Input">
-			<h2>Height</h2><input id="HeightInput" type="number" min="-10" max="99" readonly="true" onclick="show_easy_numpad(this);" />
+			<h2>Height</h2><input id="HeightInput" type="number" readonly="true" onclick="show_easy_numpad(this);" />
+			<h5 class="bottomright">mm</h5>	
         </div>			
 
 		<img id="fence_homing" src="images/FenceNoHome.jpg">
