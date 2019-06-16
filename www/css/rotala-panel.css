@@ -192,15 +192,26 @@
 		#fence_homing { 
 			position: absolute;
 			top:  350px;
-			left:  160px;
+			left:  80px;
 		}
 
 		#height_homing { 
 			position: absolute;
 			top:  350px;
-			left:  280px;
+			left:  240px;
+		}
+		#fence_probe { 
+			position: absolute;
+			top:  350px;
+			left:  400px;
 		}
 
+		#height_probe { 
+			position: absolute;
+			top:  350px;
+			left:  560px;
+		}
+		
 		.triangle-up {
 			position: absolute;
 			top:  105px;
