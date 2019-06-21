@@ -276,10 +276,6 @@ $(document).ready(function() {
     display7.setValue(value);
   }
 
-// bring buttons to default status
-  $("#Center").attr("src","/images/RunToAbs.jpg");
-  $("#Center2").attr("src","/images/RunToAbs.jpg");
-
 /*-- Bottom Buttons --*/
 	
 	$("#abs_incr").click(function(){

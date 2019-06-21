@@ -15,6 +15,8 @@ from Stepper import stepper
 from subprocess import call
 import traceback
 
+import tornado.options
+tornado.options.parse_command_line()
 
 import RPi.GPIO as GPIO # https://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
 GPIO.setmode(GPIO.BCM)
@@ -70,6 +72,7 @@ probeDistance = 60				# Preset Max distance when moving for Auto Zero
 
 
 def MoveFence(ABS):
+	print "Thread MoveFence ABS %d" % ABS
 	data = {"target": "Center", "value" : "images/RunningToAbs.jpg"}
 	data = json.dumps(data)
 	ws.write_message(data)
@@ -539,7 +542,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					Fence_Target = float(data["value"])
 					Fence_ABSMove = Fence_Target - Fence_Actual
 					Fence_Actual = Fence_Target
-					MoveFence(Fence_ABSMove)
+					# drive the motor in a background thread
+					x = threading.Thread(target=MoveFence, args=(Fence_ABSMove,))
+					x.start()
 					return
 
 			if data["event"]=="setup":
@@ -548,7 +553,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					Height_Target = float(data["value"])
 					Height_ABSMove = Height_Target - Height_Actual
 					Height_Actual = Height_Target
-					MoveHeight(Height_ABSMove)
+					# drive the motor in a background thread
+					x = threading.Thread(target=MoveHeight, args=(Height_ABSMove,))
+					x.start()
 					return
 
 			if data["event"]=="setup":
@@ -556,7 +563,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					print data["value"]
 					Fence_RelativeMove = float(data["value"])
 					Fence_Actual = Fence_Actual + Fence_RelativeMove
-					MoveFence(Fence_RelativeMove)
+					# drive the motor in a background thread
+					x = threading.Thread(target=MoveFence, args=(Fence_RelativeMove,))
+					x.start()
 					return
 
 			if data["event"]=="setup":
@@ -564,7 +573,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					print data["value"]
 					Height_RelativeMove = float(data["value"])
 					Height_Actual = Height_Actual + Height_RelativeMove
-					MoveHeight(Height_RelativeMove)
+					# drive the motor in a background thread
+					x = threading.Thread(target=MoveHeight, args=(Height_RelativeMove,))
+					x.start()
 					return
 
 			if data["event"]=="click":
