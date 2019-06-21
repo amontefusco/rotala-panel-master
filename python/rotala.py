@@ -79,7 +79,6 @@ def MoveFence(ABS):
 	else:
 		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
-	time.sleep(0.5)
 	data = {"target": "Center", "value" : "images/RunToAbs.jpg"}
 	data = json.dumps(data)
 	ws.write_message(data)
@@ -221,15 +220,19 @@ def heightHoming():
 def zeroFence():
 	global FenceZero
 	global Fence_Actual
-#	global TouchPlateDim
-#	global FenceOffsetRadius
+	global TouchPlateDim
+	global FenceOffsetRadius
 	print('Height Zero Started')
-	GPIO.add_event_detect(31, GPIO.RISING)
+	data = {"target": "fence_probe", "value" : "images/ProbeRunning.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
+	GPIO.add_event_detect(34, GPIO.RISING)
 #	try:
 	while True:
-		runFence.step(1, "left"); #steps, dir, speed, stayOn	
-		if GPIO.event_detected(31):
-			GPIO.remove_event_detect(31)
+		runFence.step(1, "left"); #steps, dir, speed, stayOn
+		time.sleep(0.5)
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
 #			runFence.step(probeDistance, "right"); #steps, dir, speed, stayOn
 #			time.sleep(0.5)
 			runFence.cleanGPIO
@@ -238,20 +241,23 @@ def zeroFence():
 	print('Fence Zeroed')
 	Fence_Actual = TouchPlateDim + FenceOffsetRadius
 	FenceZero = 0.0
+	data = {"target": "fence_probe", "value" : "images/FenceProbe.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)	
 
 def zeroHeight():
 	global HeightZero
 	global Height_Actual
-#	data = {"target": "xxxxxx", "value" : "images/xxxxx.jpg"}
-#	data = json.dumps(data)
-#	ws.write_message(data)
+	data = {"target": "height_probe", "value" : "images/ProbeRunning.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)
 	print('Height Zero Started')
-	GPIO.add_event_detect(31, GPIO.RISING)
+	GPIO.add_event_detect(34, GPIO.RISING)
 #	try:
 	while True:
 		runHeight.step(1, "left"); #steps, dir, speed, stayOn	
-		if GPIO.event_detected(31):
-			GPIO.remove_event_detect(31)
+		if GPIO.event_detected(34):
+			GPIO.remove_event_detect(34)
 #			runHeight.step(probeDistance, "right"); #steps, dir, speed, stayOn
 #			time.sleep(0.5)
 			runHeight.cleanGPIO
@@ -270,7 +276,9 @@ def zeroHeight():
 	print('Height Zeroed')
 	Height_Actual = 0.1
 	HeightZero = 0.0
-	
+	data = {"target": "height_probe", "value" : "images/HeightProbe.jpg"}
+	data = json.dumps(data)
+	ws.write_message(data)	
 	
 
 	
@@ -439,21 +447,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					data = json.dumps(data)
 					ws.write_message(data)
 					return
-					
-	# ------------------ Homing Buttons -----------------------
-					
-			if data["event"]=="click":
-				if data["id"]=="height_homing":
-					heightHoming()
-					return
-					
-			if data["event"]=="click":
-				if data["id"]=="fence_homing":
-					fenceHoming()
-					return
-	# ---------------------------------------------------------				
-					
-					
+		
 
 			if data["event"]=="click":
 				if data["id"]=="button_zero3":
@@ -532,7 +526,11 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					data = json.dumps(data)
 					ws.write_message(data)
 					return
-
+					
+	# ---------------------------------------------------------				
+	# -------------------- Motor Actions ----------------------
+	# ---------------------------------------------------------
+	
 			if data["event"]=="setup":
 				if data["id"]=="fence":
 					#print data["value"]
@@ -556,7 +554,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					print data["value"]
 					Fence_RelativeMove = float(data["value"])
 					Fence_Actual = Fence_Actual + Fence_RelativeMove
-					MoveFence(Fence_RelativeMove)
+					MoveFenceRel(Fence_RelativeMove)
 					return
 
 			if data["event"]=="setup":
@@ -567,6 +565,40 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 					MoveHeight(Height_RelativeMove)
 					return
 
+	
+	# ---------------------------------------------------------
+	# ------------------ Homing Buttons -----------------------
+	# ---------------------------------------------------------
+					
+			if data["event"]=="click":
+				if data["id"]=="height_homing":
+					heightHoming()
+					return
+					
+			if data["event"]=="click":
+				if data["id"]=="fence_homing":
+					fenceHoming()
+					return
+
+
+	# ---------------------------------------------------------	
+	# ------------------- Auto Zero ---------------------------
+	# ---------------------------------------------------------	
+	
+			if data["event"]=="click":
+				if data["id"]=="height_probe":
+					zeroHeight()
+					return
+					
+			if data["event"]=="click":
+				if data["id"]=="fence_probe":
+					zeroFence()
+					return
+
+	# ---------------------------------------------------------	
+	# ------------------- Shutdown ----------------------------
+	# ---------------------------------------------------------				
+					
 			if data["event"]=="click":
 				if data["id"]=="Shutdown":
 					call("sudo systemctl halt", shell=True)

@@ -1,3 +1,11 @@
+
+var tmpImg = new Image();
+tmpImg.src = "images/ProbeRunning.jpg";
+var tmpImg2 = new Image();
+tmpImg2.src = "images/MovingRel.jpg";
+var tmpImg3 = new Image();
+tmpImg3.src = "images/RunningToAbs.jpg";
+
 var host = window.location.host;
 var ws = new WebSocket('ws://'+host+'/ws');
 
@@ -20,6 +28,8 @@ ws.onmessage = function(ev){
 	data=JSON.parse(ev.data);
 	
 	if (data.target=="display1") {
+		display1.setValue(data.value.toFixed(1).padStart(5, " "));
+/*
 		if (data.value <= -10.0) {
 			display1.setValue(data.value.toString());
 		} else if (data.value < 0.0) {
@@ -31,8 +41,11 @@ ws.onmessage = function(ev){
 		} else {
 			display1.setValue(data.value.toString());
 		}
+*/
 	}	
 	if (data.target=="display2") {
+		display2.setValue(data.value.toFixed(1).padStart(5, " "));
+/*
 		if (data.value <= -10.0) {
 			display2.setValue(data.value.toString());
 		} else if (data.value < 0.0) {
@@ -44,15 +57,21 @@ ws.onmessage = function(ev){
 		} else {
 			display2.setValue(data.value.toString());
 		}
+*/
 	}	
 	if (data.target=="display3") {
+		display3.setValue(data.value.toFixed(1).padStart(4, " "));
+/*
 		if (data.value < 10.0) {
 			display3.setValue(" "+data.value.toString());	
 		} else {
 			display3.setValue(data.value.toString());
 		}
+*/
 	}
 	if (data.target=="display4") {
+		display4.setValue(data.value.toFixed(1).padStart(5, " "));
+/*
 		if (data.value <= -10.0) {
 			display4.setValue(data.value.toString());
 		} else if (data.value < 0.0) {
@@ -64,12 +83,17 @@ ws.onmessage = function(ev){
 		} else {
 			display4.setValue(data.value.toString());
 		}
-	}	
+*/
+	}
 	if (data.target=="display5") {
+		display5.setValue(data.value.toFixed(1).padStart(5, " "));
+/*
 		if (data.value <=-10.0) {
 			display5.setValue(data.value.toString());
-		} else if (data.value < 0.0) {
+		} else if (data.value = 0.0) {
 			display5.setValue(" "+data.value.toString());			
+		} else if (data.value < 0.0) {
+			display5.setValue(" "+data.value.toString());
 		} else if (data.value < 10.0) {
 			display5.setValue("  "+data.value.toString());
 		} else if (data.value < 100.0) {
@@ -77,13 +101,17 @@ ws.onmessage = function(ev){
 		} else {
 			display5.setValue(data.value.toString());
 		}
-	}	
+*/
+	}
 	if (data.target=="display6") {
+		display6.setValue(data.value.toFixed(1).padStart(4, " "));
+/*
 		if (data.value < 10.0) {
 			display6.setValue(" "+data.value.toString());	
 		} else {
 			display6.setValue(data.value.toString());
 		}
+*/
 	}
 	
 	if (data.target=="abs_incr") {
@@ -104,6 +132,12 @@ ws.onmessage = function(ev){
 	if (data.target=="button_zero2") {
 		$("#button_zero2").attr("src",data.value.toString());
 	}
+	if (data.target=="fence_probe") {
+		$("#fence_probe").attr("src",data.value.toString());
+	}	
+	if (data.target=="height_probe") {
+		$("#height_probe").attr("src",data.value.toString());
+	}	
 	if (data.target=="fence_homing") {
 		$("#fence_homing").attr("src",data.value.toString());
 	}	
@@ -276,9 +310,12 @@ $(document).ready(function() {
     display7.setValue(value);
   }
 
+ /*
 // bring buttons to default status
   $("#Center").attr("src","/images/RunToAbs.jpg");
   $("#Center2").attr("src","/images/RunToAbs.jpg");
+  $("#Center3").attr("src","/images/MoveRel.jpg");
+ */
 
 /*-- Bottom Buttons --*/
 	
@@ -359,6 +396,7 @@ $(document).ready(function() {
 		ws.send(a);
 	});
 	
+/*-- ********************** Motion Buttons *********************** --*/
 	
 	$("#Center").click(function(){
 		//alert("Ci sono");
@@ -385,18 +423,38 @@ $(document).ready(function() {
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
+	
+	
+	/*-- ********************** Probe Buttons *********************** --*/
+	
+	$("#fence_probe").click(function(){
+		data={"event":"click","id": "fence_probe","value" : $("#fence_probe").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	}); 
+	$("#height_probe").click(function(){
+		data={"event":"click","id": "height_probe","value" : $("#height_probe").attr("src")};
+		a=JSON.stringify(data);
+		ws.send(a);
+	});
+
+	
+	/*-- ********************** Home Buttons *********************** --*/
+	
 	$("#fence_homing").click(function(){
 		data={"event":"click","id": "fence_homing","value" : $("#fence_homing").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
 	}); 
-	
 	$("#height_homing").click(function(){
 		//alert("Ci sono");
 		data={"event":"click","id": "height_homing","value" : $("#height_homing").attr("src")};
 		a=JSON.stringify(data);
 		ws.send(a);
 	});
+
+	/*-- ********************** Power Buttons *********************** --*/
+
 	$("#powerOff").click(function(){
 		//alert("Ci sono");
 		data={"event":"click","id":"Shutdown", "value" :$("#powerOff").val()};
