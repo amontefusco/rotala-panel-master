@@ -106,9 +106,27 @@ ws.onmessage = function(ev){
 	}	
 	if (data.target=="Center") {
 		$("#Center").attr("src",data.value.toString());
+		// display hold on panel
+		if (data.hold == "true") {
+			HoldOn.open({
+				message: "Motor running, please wait",
+				theme: "sk-cube-grid"
+			});
+		} else {
+			HoldOn.close();
+		};
 	}
 	if (data.target=="Center2") {
 		$("#Center2").attr("src",data.value.toString());
+		// display hold on panel
+		if (data.hold == "true") {
+			HoldOn.open({
+				message: "Motor running, please wait",
+				theme: "sk-cube-grid"
+			});
+		} else {
+			HoldOn.close();
+		};
 	}	
 	if (data.target=="Center3") {
 		$("#Center3").attr("src",data.value.toString());
@@ -290,7 +308,7 @@ $(document).ready(function() {
 
 	display7.setValue('12:34:30');
 	
-  window.setInterval('animate()', 100);
+  //window.setInterval('animate()', 100);
   
   function animate() {
     var time    = new Date();
