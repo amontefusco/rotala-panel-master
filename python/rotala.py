@@ -73,8 +73,7 @@ probeDistance = 60				# Preset Max distance when moving for Auto Zero
 
 
 def MoveFence(ABS):
-	print "Thread MoveFence ABS %d" % ABS
-	data = {"target": "Center", "value" : "images/RunningToAbs.jpg"}
+	data = {"target": "Center", "value" : "images/RunningToAbs.jpg", "hold": "true"}
 	data = json.dumps(data)
 	ws.write_message(data)
 	if ABS > 0:
@@ -83,12 +82,12 @@ def MoveFence(ABS):
 	else:
 		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
-	data = {"target": "Center", "value" : "images/RunToAbs.jpg"}
+	data = {"target": "Center", "value" : "images/RunToAbs.jpg", "hold": "false"}
 	data = json.dumps(data)
 	ws.write_message(data)
 	
 def MoveFenceRel(ABS):
-	data = {"target": "Center3", "value" : "images/MovingRel.jpg"}
+	data = {"target": "Center3", "value" : "images/MovingRel.jpg", "hold": "true"}
 	data = json.dumps(data)
 	ws.write_message(data)
 	if ABS > 0:
@@ -97,13 +96,13 @@ def MoveFenceRel(ABS):
 	else:
 		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
-	data = {"target": "Center3", "value" : "images/MoveRel.jpg"}
+	data = {"target": "Center3", "value" : "images/MoveRel.jpg", "hold": "false"}
 	data = json.dumps(data)
 	ws.write_message(data)
 
 
 def MoveHeight(ABS):
-	data = {"target": "Center2", "value" : "images/RunningToAbs.jpg"}
+	data = {"target": "Center2", "value" : "images/RunningToAbs.jpg", "hold": "true"}
 	data = json.dumps(data)
 	ws.write_message(data)
 	if ABS > 0:
@@ -112,7 +111,7 @@ def MoveHeight(ABS):
 	else:
 		runHeight.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runHeight.cleanGPIO
-	data = {"target": "Center2", "value" : "images/RunToAbs.jpg"}
+	data = {"target": "Center2", "value" : "images/RunToAbs.jpg", "hold": "false"}
 	data = json.dumps(data)
 	ws.write_message(data)
 
