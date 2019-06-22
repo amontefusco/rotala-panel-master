@@ -53,6 +53,25 @@
 		
 /* ------------ Display Div General Properties ----------- */
 		
+		.AxisTest {
+			color: #0010aa;
+			position: fixed;
+			left:  175px;
+			top:  100px;		
+/*			height: 20px;
+			width: 120px;
+			border: 2px solid #0010aa;
+			border-radius: 8px;
+			text-align: left;			
+			padding: 10px;	*/
+		}
+		.heightActual2 {
+			color: #0010aa;
+			position: fixed;
+			left:  175px;
+			top:  220px;		
+		}
+
 		.Axis {
 			color: #0010aa;
 			position: fixed;
@@ -120,7 +139,15 @@
 			bottom: 5px;			
 			left:  240px;
 			width: 200px;
-		}		
+		}
+		#display8 { 
+			position: absolute;
+			bottom: 5px;			
+		}
+		#display9 { 
+			position: absolute;
+			bottom: 5px;			
+		}	
 
 /* ---------- Display Counters Unit Description mm/inches -------- */
 		
@@ -313,7 +340,7 @@
 			  display:block;
 			  margin:0.2em auto;
 			 }
-		} 	
+		}
 
 /* ------------------ Navigation Buttons General Properties ----------------- */
 
@@ -500,53 +527,17 @@
 			left: 20px;
 		}
 		#powerOff {
-			left: 640px;
+			left: 670px;
 		}
 
 		.shutdown {
 			position: absolute;
-			top: 380px;
-			-moz-box-shadow:inset 0px 1px 3px 0px #947987;
-			-webkit-box-shadow:inset 0px 1px 3px 0px #947987;
-			box-shadow:inset 0px 1px 3px 0px #947987;
-			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f23030), color-stop(1, #b51616));
-			background:-moz-linear-gradient(top, #f23030 5%, #b51616 100%);
-			background:-webkit-linear-gradient(top, #f23030 5%, #b51616 100%);
-			background:-o-linear-gradient(top, #f23030 5%, #b51616 100%);
-			background:-ms-linear-gradient(top, #f23030 5%, #b51616 100%);
-			background:linear-gradient(to bottom, #f23030 5%, #b51616 100%);
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f23030', endColorstr='#b51616',GradientType=0);
-			background-color:#f23030;
-			-moz-border-radius:10px;
-			-webkit-border-radius:10px;
-			border-radius:10px;
-			border:2px solid #69565c;
-			display:inline-block;
-			cursor:pointer;
-			color:#ffffff;
-			font-family:Arial;
-			font-size:18px;
-			font-weight:bold;
-			padding:24px 29px;
-			text-decoration:none;
-			text-shadow:0px -1px 0px #662c39;
-		}
-		.shutdown:hover {
-			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b51616), color-stop(1, #f23030));
-			background:-moz-linear-gradient(top, #b51616 5%, #f23030 100%);
-			background:-webkit-linear-gradient(top, #b51616 5%, #f23030 100%);
-			background:-o-linear-gradient(top, #b51616 5%, #f23030 100%);
-			background:-ms-linear-gradient(top, #b51616 5%, #f23030 100%);
-			background:linear-gradient(to bottom, #b51616 5%, #f23030 100%);
-			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b51616', endColorstr='#f23030',GradientType=0);
-			background-color:#b51616;
-		}
-		.shutdown:active {
-			position:relative;
-			top:1px;
+			top: 350px;
 		}
 		
 /* #################### easy-numpad Input Properties ################## */
+
+
 
 		#FenceInput {
 			position: absolute;

@@ -15,6 +15,8 @@ var display3;
 var display4;
 var display5;
 var display6;
+var display8;
+var display9;
 var appoggio;
 
 
@@ -27,92 +29,41 @@ ws.onopen = function(){
 ws.onmessage = function(ev){
 	data=JSON.parse(ev.data);
 	
+	
+// *************** DRO Page Displays ****************/
+
 	if (data.target=="display1") {
 		display1.setValue(data.value.toFixed(1).padStart(5, " "));
-/*
-		if (data.value <= -10.0) {
-			display1.setValue(data.value.toString());
-		} else if (data.value < 0.0) {
-			display1.setValue(" "+data.value.toString());
-		} else if (data.value < 10.0) {
-			display1.setValue("  "+data.value.toString());
-		} else if (data.value < 100.0) {
-			display1.setValue(" "+data.value.toString());		
-		} else {
-			display1.setValue(data.value.toString());
-		}
-*/
+		
 	}	
 	if (data.target=="display2") {
 		display2.setValue(data.value.toFixed(1).padStart(5, " "));
-/*
-		if (data.value <= -10.0) {
-			display2.setValue(data.value.toString());
-		} else if (data.value < 0.0) {
-			display2.setValue(" "+data.value.toString());			
-		} else if (data.value < 10.0) {
-			display2.setValue("  "+data.value.toString());
-		} else if (data.value < 100.0) {
-			display2.setValue(" "+data.value.toString());			
-		} else {
-			display2.setValue(data.value.toString());
-		}
-*/
+
 	}	
 	if (data.target=="display3") {
 		display3.setValue(data.value.toFixed(1).padStart(4, " "));
-/*
-		if (data.value < 10.0) {
-			display3.setValue(" "+data.value.toString());	
-		} else {
-			display3.setValue(data.value.toString());
-		}
-*/
+
+
+// *************** Auto Page Displays ****************/
 	}
 	if (data.target=="display4") {
 		display4.setValue(data.value.toFixed(1).padStart(5, " "));
-/*
-		if (data.value <= -10.0) {
-			display4.setValue(data.value.toString());
-		} else if (data.value < 0.0) {
-			display4.setValue(" "+data.value.toString());			
-		} else if (data.value < 10.0) {
-			display4.setValue("  "+data.value.toString());
-		} else if (data.value < 100.0) {
-			display4.setValue(" "+data.value.toString());			
-		} else {
-			display4.setValue(data.value.toString());
-		}
-*/
 	}
 	if (data.target=="display5") {
 		display5.setValue(data.value.toFixed(1).padStart(5, " "));
-/*
-		if (data.value <=-10.0) {
-			display5.setValue(data.value.toString());
-		} else if (data.value = 0.0) {
-			display5.setValue(" "+data.value.toString());			
-		} else if (data.value < 0.0) {
-			display5.setValue(" "+data.value.toString());
-		} else if (data.value < 10.0) {
-			display5.setValue("  "+data.value.toString());
-		} else if (data.value < 100.0) {
-			display5.setValue(" "+data.value.toString());			
-		} else {
-			display5.setValue(data.value.toString());
-		}
-*/
 	}
 	if (data.target=="display6") {
 		display6.setValue(data.value.toFixed(1).padStart(4, " "));
-/*
-		if (data.value < 10.0) {
-			display6.setValue(" "+data.value.toString());	
-		} else {
-			display6.setValue(data.value.toString());
-		}
-*/
 	}
+	
+// *************** Setup Page Mini Displays ****************/
+	if (data.target=="display8") {
+		display8.setValue(data.value.toFixed(1).padStart(5, " "));
+	}
+	if (data.target=="display9") {
+		display9.setValue(data.value.toFixed(1).padStart(5, " "));
+	}	
+	
 	
 	if (data.target=="abs_incr") {
 		$("#abs_incr").text(data.value.toString());
@@ -170,6 +121,12 @@ ws.onmessage = function(ev){
 	}	
 	if (data.target=="Down") {
 		$("#Down").attr("src",data.value.toString());
+	}
+	if (data.target=="Reboot") {
+		$("#Reboot").attr("src",data.value.toString());
+	}	
+	if (data.target=="Shutdown") {
+		$("#Shutdown").attr("src",data.value.toString());
 	}	
 };
 
@@ -280,6 +237,42 @@ $(document).ready(function() {
 	display6.colorOff        = "#100505";
 
 	display6.setValue("00.0");
+	
+	
+	display8= new SegmentDisplay("display8");
+
+	display8.pattern         = "###.#";
+	display8.displayAngle    = 6.5;
+	display8.digitHeight     = 2;
+	display8.digitWidth      = 1;
+	display8.digitDistance   = 0.2;
+	display8.segmentWidth    = 0.1;
+	display8.segmentDistance = 0.1;
+	display8.segmentCount    = 7;
+	display8.cornerType      = 3;
+	display8.colorOn         = "#33ee0f";
+	display8.colorOff        = "#100505";
+
+	display8.setValue("000.0");
+	
+	
+	display9= new SegmentDisplay("display9");
+
+	display9.pattern         = "###.#";
+	display9.displayAngle    = 6.5;
+	display9.digitHeight     = 2;
+	display9.digitWidth      = 1;
+	display9.digitDistance   = 0.2;
+	display9.segmentWidth    = 0.1;
+	display9.segmentDistance = 0.1;
+	display9.segmentCount    = 7;
+	display9.cornerType      = 3;
+	display9.colorOn         = "#33ee0f";
+	display9.colorOff        = "#100505";
+
+	display9.setValue("000.0");
+	
+	
 	
 	display7= new SegmentDisplay("display7");
 
