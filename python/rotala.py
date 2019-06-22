@@ -87,7 +87,7 @@ def MoveFence(ABS):
 	ws.write_message(data)
 	
 def MoveFenceRel(ABS):
-	data = {"target": "Center3", "value" : "images/MovingRel.jpg"}
+	data = {"target": "Center3", "value" : "images/MovingRel.jpg", "hold": "true"}
 	data = json.dumps(data)
 	ws.write_message(data)
 	if ABS > 0:
@@ -96,7 +96,7 @@ def MoveFenceRel(ABS):
 	else:
 		runFence.step(ABS*200, "right"); #steps, dir, speed, stayOn
 		runFence.cleanGPIO
-	data = {"target": "Center3", "value" : "images/MoveRel.jpg"}
+	data = {"target": "Center3", "value" : "images/MoveRel.jpg", "hold": "false"}
 	data = json.dumps(data)
 	ws.write_message(data)
 

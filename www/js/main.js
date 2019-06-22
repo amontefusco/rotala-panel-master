@@ -57,6 +57,7 @@ ws.onmessage = function(ev){
 	}
 	
 // *************** Setup Page Mini Displays ****************/
+
 	if (data.target=="display8") {
 		display8.setValue(data.value.toFixed(1).padStart(5, " "));
 	}
@@ -130,6 +131,15 @@ ws.onmessage = function(ev){
 	}	
 	if (data.target=="Center3") {
 		$("#Center3").attr("src",data.value.toString());
+		// display hold on panel
+		if (data.hold == "true") {
+			HoldOn.open({
+				message: "Motor running, please wait",
+				theme: "sk-cube-grid"
+			});
+		} else {
+			HoldOn.close();
+		};
 	}
 	if (data.target=="Right") {
 		$("#Right").attr("src",data.value.toString());
@@ -308,7 +318,9 @@ $(document).ready(function() {
 
 	display7.setValue('12:34:30');
 	
+
   //window.setInterval('animate()', 100);
+
   
   function animate() {
     var time    = new Date();
